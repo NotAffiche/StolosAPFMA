@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">StolosAPFMA</string>
+
+    <string name="drivers">Drivers</string>
+    <string name="vehicles">Vehicles</string>
+    <string name="fuelcards">Fuel Cards</string>
+</resources>
