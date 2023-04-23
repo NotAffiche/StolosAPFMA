@@ -1,5 +1,6 @@
 package me.adbi.stolosapfma
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -32,7 +33,8 @@ class MainActivity : ComponentActivity() {
 
         btnDrivers.setOnClickListener {
             Toast.makeText(this, "Drivers", Toast.LENGTH_SHORT).show()
-            getData(api.getPosts())
+            //getData(api.getPosts())
+            startActivity(Intent(this, ActivityDrivers::class.java).apply { putExtra("id", "driver") })
         }
         btnVehicles.setOnClickListener {
             Toast.makeText(this, "Vehicles", Toast.LENGTH_SHORT).show()
