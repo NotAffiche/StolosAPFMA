@@ -8,6 +8,10 @@ data class DriverModel (
     val lastName: String? = "",
     val birthDate: Date?,
     val natRegNum: String? = "",
-    val licenses: IntArray?,
-    val address: String? = ""
+    val licenses: String? = "",
+    val address: String? = "",
+
+    val vin: String? = "",
+    val licensePlate: String? = "",
+    val gasCardNum: String? = ""
 )
