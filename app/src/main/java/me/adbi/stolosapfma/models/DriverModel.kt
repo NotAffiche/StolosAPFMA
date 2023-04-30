@@ -1,20 +1,14 @@
 package me.adbi.stolosapfma.models
 
-import java.util.Date
-
-/*data class DriverModel (
+data class DriverModel (
     val driverID: Int,
     val firstName: String,
     val lastName: String,
-    val birthDate: Date,
+    val birthDate: String,
     val natRegNum: String,
-    val licenses: List<String>,
-    val address: String? = "",
+    val licenses: Array<String>,
+    val address: String?,
 
-    val vin: String? = "",
-    val gasCardNum: String? = ""
-)*/
-data class DriverModel (
-    val firstName: String,
-    val lastName: String
+    val vehicleVin: String?,
+    val gasCardNum: String?
 )

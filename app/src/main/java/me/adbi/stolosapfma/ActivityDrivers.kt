@@ -57,7 +57,7 @@ class ActivityDrivers : ComponentActivity() {
         api.getDrivers().enqueue(object : Callback<ArrayList<DriverModel>> {
             override fun onResponse(call: Call<ArrayList<DriverModel>>, response: Response<ArrayList<DriverModel>>) {
                 if(response.isSuccessful) {
-                    Log.e("success", response.body().toString())
+                    Log.i("success", response.body().toString())
                     rv.apply {
                         layoutManager = LinearLayoutManager(this@ActivityDrivers)
                         adapter = DriverAdapter(response.body()!!)
