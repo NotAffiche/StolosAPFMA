@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         val api: ApiService = retrofit.create(ApiService::class.java)
 
         btnDrivers.setOnClickListener {
-            Toast.makeText(this, "Drivers", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Drivers", Toast.LENGTH_SHORT).show()
             //getData(api.getPosts())
             startActivity(Intent(this, ActivityDrivers::class.java).apply { putExtra("id", "driver") })
         }
