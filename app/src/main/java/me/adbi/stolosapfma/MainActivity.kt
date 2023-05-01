@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
         }
         btnFuelCards.setOnClickListener {
             Toast.makeText(this, "Fuel cards", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ActivityGasCards::class.java))
         }
     }
 }

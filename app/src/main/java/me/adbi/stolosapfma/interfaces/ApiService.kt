@@ -1,6 +1,7 @@
 package me.adbi.stolosapfma.interfaces
 
 import me.adbi.stolosapfma.models.DriverModel
+import me.adbi.stolosapfma.models.GasCardModel
 import me.adbi.stolosapfma.models.VehicleModel
 import retrofit2.Call
 import retrofit2.http.GET
@@ -11,4 +12,7 @@ interface ApiService {
 
     @GET("Vehicle")
     fun getVehicles(): Call<ArrayList<VehicleModel>>
+
+    @GET("GasCard")
+    fun getGasCards(): Call<ArrayList<GasCardModel>>
 }
