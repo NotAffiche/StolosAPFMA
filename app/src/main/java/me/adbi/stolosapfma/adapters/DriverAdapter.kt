@@ -37,13 +37,22 @@ class DriverAdapter(objects:ArrayList<DriverModel>) : RecyclerView.Adapter<Drive
         private val tvVehicle: TextView = itemView.findViewById(R.id.tvVehicle)
         private val tvGasCard: TextView = itemView.findViewById(R.id.tvGasCard)
         fun bindView(d: DriverModel) {
-            tvName.text = "${d.driverID} ${d.firstName}  ${d.lastName}"
+            tvName.text = "${d.driverID} ${d.firstName} ${d.lastName}"
             tvBirthDate.text = "${d.birthDate.split("T")[0]}"
             tvRRN.text = "${d.natRegNum}"
             tvLicenses.text = "${d.licenses.joinToString(prefix = "[", separator = ",", postfix = "]")}"
-            if (d.address==null) {tvAddress.text = "${d.address}"} else {tvAddress.text = "No Address"}
-            if (d.vehicleVin==null) {tvVehicle.text = "${d.vehicleVin}"} else {tvVehicle.text = "No Vehicle"}
-            if (d.gasCardNum==null) {tvAddress.text = "${d.gasCardNum}"} else {tvAddress.text = "No Gascard"}
+            tvAddress.text = "No Address"
+            tvVehicle.text = "No Vehicle"
+            tvGasCard.text = "No GasCard"
+            if (d.address!=null) {
+                tvAddress.text = "${d.address}"
+            }
+            if (d.vehicleVin!=null) {
+                tvVehicle.text = "${d.vehicleVin}"
+            }
+            if (d.gasCardNum!=null) {
+                tvGasCard.text = "${d.gasCardNum}"
+            }
 
             itemView.setOnClickListener(OnClickListener {
                 Log.d("TAG", "CLICKED ON ${d.driverID} - ${d.firstName} - ${d.lastName}")
