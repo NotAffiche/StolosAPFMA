@@ -58,7 +58,7 @@ class ActivityDrivers : ComponentActivity() {
                     Log.i("success", response.body().toString())
                     rv.apply {
                         layoutManager = LinearLayoutManager(this@ActivityDrivers)
-                        adapter = DriverAdapter(response.body()!!)
+                        adapter = DriverAdapter(context = context, response.body()!!)
                     }
                 }
             }

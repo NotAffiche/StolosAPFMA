@@ -1,5 +1,7 @@
 package me.adbi.stolosapfma.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +9,11 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import me.adbi.stolosapfma.ActivityDetailDriver
 import me.adbi.stolosapfma.R
 import me.adbi.stolosapfma.models.DriverModel
 
-class DriverAdapter(objects:ArrayList<DriverModel>) : RecyclerView.Adapter<DriverAdapter.DriverViewHolder>() {
+class DriverAdapter(var context: Context, objects:ArrayList<DriverModel>) : RecyclerView.Adapter<DriverAdapter.DriverViewHolder>() {
 
     private val drivers = objects
 
@@ -40,7 +43,7 @@ class DriverAdapter(objects:ArrayList<DriverModel>) : RecyclerView.Adapter<Drive
             tvName.text = "${d.driverID} ${d.firstName} ${d.lastName}"
             tvBirthDate.text = "${d.birthDate.split("T")[0]}"
             tvRRN.text = "${d.natRegNum}"
-            tvLicenses.text = "${d.licenses.joinToString(prefix = "[", separator = ",", postfix = "]")}"
+            tvLicenses.text = "${d.licenses.joinToString(prefix = "[", separator = ", ", postfix = "]")}"
             tvAddress.text = "No Address"
             tvVehicle.text = "No Vehicle"
             tvGasCard.text = "No GasCard"
@@ -56,6 +59,7 @@ class DriverAdapter(objects:ArrayList<DriverModel>) : RecyclerView.Adapter<Drive
 
             itemView.setOnClickListener(OnClickListener {
                 Log.d("TAG", "CLICKED ON ${d.driverID} - ${d.firstName} - ${d.lastName}")
+                context.startActivity(Intent(context, ActivityDetailDriver::class.java).putExtra("driverID", d.driverID))
             })
         }
     }

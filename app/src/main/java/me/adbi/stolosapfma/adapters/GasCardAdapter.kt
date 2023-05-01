@@ -40,14 +40,14 @@ class GasCardAdapter(objects:ArrayList<GasCardModel>) : RecyclerView.Adapter<Gas
             tvCardNumber.text = "${gc.cardNumber}"
             tvExpiringDate.text = "${gc.expiringDate.split("T")[0]}"
             tvPin.text = "No pin"
-            tvFuelTypes.text = "${gc.fuelTypes.joinToString(prefix = "[", separator = ",", postfix = "]")}"
+            tvFuelTypes.text = "${gc.fuelTypes.joinToString(prefix = "[", separator = ", ", postfix = "]")}"
             tvBlocked.text = "Blocked: ${gc.blocked.toString()}"
             tvDriver.text = "No driver"
             if (gc.pincode!=null) {
-                tvPin.text = "${gc.pincode}"
+                tvPin.text = "${gc.pincode.toString()}"
             }
             if (gc.driverId!=null) {
-                tvDriver.text = "${gc.driverId}"
+                tvDriver.text = "${gc.driverId.toString()}"
             }
 
             itemView.setOnClickListener(OnClickListener {
