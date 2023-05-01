@@ -14,49 +14,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="30sp"
-        tools:text="ID FirstName LastName"/>
-
-    <TextView
-        android:id="@+id/tvBirthDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="BirthDate"/>
-    <TextView
-        android:id="@+id/tvRRN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="RRN"/>
-    <TextView
-        android:id="@+id/tvLicenses"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="Licenses"/>
-    <TextView
-        android:id="@+id/tvAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="Address"/>
-    <TextView
-        android:id="@+id/tvVehicle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="Vehicle VIN"/>
-    <TextView
-        android:id="@+id/tvGasCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="GasCard Num"/>
+        tools:text="FirstName LastName"/>
 
 </LinearLayout>

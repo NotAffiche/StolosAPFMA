@@ -2,6 +2,9 @@ package me.adbi.stolosapfma
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +34,7 @@ class ActivityDrivers : ComponentActivity() {
 
         val rv: RecyclerView = findViewById<RecyclerView>(R.id.rvDrivers)
 
-        //
+        //region IGNORE_UNTRUSTED_HTTPS
         val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
             override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
             override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
@@ -43,11 +46,11 @@ class ActivityDrivers : ComponentActivity() {
             .sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
             .hostnameVerifier { _, _ -> true }
             .build()
-        //
+        //endregion
 
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(okHttpClient)
+            .client(okHttpClient)//okHttpClient defined in IGNORE_UNTRUSTED_HTTPS
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val api: ApiService = retrofit.create(ApiService::class.java)

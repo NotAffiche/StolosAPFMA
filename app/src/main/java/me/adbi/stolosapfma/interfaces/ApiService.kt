@@ -17,4 +17,8 @@ interface ApiService {
 
     @GET("Driver/{id}")
     fun getDriverById(@Path("id") driverId: Int): Call<DriverModel>
+    @GET("Vehicle/{vin}")
+    fun getVehicleByVIN(@Path("vin") vin: String): Call<VehicleModel>
+    @GET("GasCard/{cardNum}")
+    fun getGasCardByCardNum(@Path("cardNum") cardNum: String): Call<GasCardModel>
 }

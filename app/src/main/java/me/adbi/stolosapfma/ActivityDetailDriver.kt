@@ -55,7 +55,7 @@ class ActivityDetailDriver : ComponentActivity() {
             .build()
         val api: ApiService = retrofit.create(ApiService::class.java)
 
-        api.getDriverById(intent.getIntExtra("driverID", 0).toInt()).enqueue(object : Callback<DriverModel> {
+        api.getDriverById(intent.getIntExtra("driverID", 0)).enqueue(object : Callback<DriverModel> {
             override fun onResponse(call: Call<DriverModel>, response: Response<DriverModel>) {
                 if (response.isSuccessful) {
                     Log.i("succuess", response.body().toString())
