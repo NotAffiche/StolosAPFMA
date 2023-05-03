@@ -1,5 +1,6 @@
 package me.adbi.stolosapfma
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -55,10 +56,14 @@ class ActivityDrivers : ComponentActivity() {
             .build()
         val api: ApiService = retrofit.create(ApiService::class.java)
 
+        val btnAddDriver: Button = findViewById(R.id.btnAddDriver)
+        btnAddDriver.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this@ActivityDrivers, ActivityDetailDriver::class.java).putExtra("driverID", 0))
+        })
+
         api.getDrivers().enqueue(object : Callback<ArrayList<DriverModel>> {
             override fun onResponse(call: Call<ArrayList<DriverModel>>, response: Response<ArrayList<DriverModel>>) {
                 if(response.isSuccessful) {
-                    Log.i("success", response.body().toString())
                     rv.apply {
                         layoutManager = LinearLayoutManager(this@ActivityDrivers)
                         adapter = DriverAdapter(context = context, response.body()!!)

@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
-        android:layout_height="165sp"
+        android:layout_height="150sp"
         android:layout_margin="20sp"
         android:src="@drawable/logo" />
 
@@ -214,11 +214,25 @@
             android:textSize="20sp"
             tools:text="GasCard Num"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="53sp"
-        android:text="SAVE"/>
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_height="55sp"
+            android:layout_width="150sp"
+            android:layout_alignParentLeft="true"
+            android:text="SAVE"/>
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="150sp"
+            android:layout_height="55sp"
+            android:layout_alignParentRight="true"
+            android:text="DELETE" />
+    </RelativeLayout>
+
+
 
 </LinearLayout>

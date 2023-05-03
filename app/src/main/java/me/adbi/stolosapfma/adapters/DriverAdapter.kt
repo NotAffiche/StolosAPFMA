@@ -36,7 +36,6 @@ class DriverAdapter(var context: Context, objects:ArrayList<DriverModel>) : Recy
         fun bindView(d: DriverModel) {
             tvName.text = "${d.firstName} ${d.lastName}"
             itemView.setOnClickListener(OnClickListener {
-                Log.d("TAG", "CLICKED ON ${d.driverID} - ${d.firstName} - ${d.lastName}")
                 context.startActivity(Intent(context, ActivityDetailDriver::class.java).putExtra("driverID", d.driverID))
             })
         }
