@@ -30,22 +30,34 @@ interface ApiService {
     fun getDriverById(@Path("id") driverId: Int): Call<DriverModel>
     @GET("api/vehicles/{vin}")
     fun getVehicleByVIN(@Path("vin") vin: String): Call<VehicleModel>
-    @GET("api/gascards/{cardNum}")
-    fun getGasCardByCardNum(@Path("cardNum") cardNum: String): Call<GasCardModel>
+    @GET("api/gascards/{cn}")
+    fun getGasCardByCardNum(@Path("cn") cardNum: String): Call<GasCardModel>
     //endregion
 
     //region POST
     @POST("api/drivers")
     fun addDriver(@Body driverModel: DriverModel): Call<Unit>
+    @POST("api/vehicles")
+    fun addVehicle(@Body vehicleModel: VehicleModel): Call<Unit>
+    @POST("api/gascards")
+    fun addGasCard(@Body gasCardModel: GasCardModel): Call<Unit>
     //endregion
 
     //region PUT
     @PUT("api/drivers")
     fun updateDriverById(@Body driverModel: DriverModel): Call<Unit>
+    @PUT("api/vehicles")
+    fun updateVehicleByVin(@Body vehicleModel: VehicleModel): Call<Unit>
+    @PUT("api/gascards")
+    fun updateGasCardByCardNum(@Body gasCardModel: GasCardModel): Call<Unit>
     //endregion
 
     //region DELETE
     @DELETE("api/drivers/{id}")
     fun deleteDriverById(@Path("id") driverId: Int): Call<Unit>
+    @DELETE("api/vehicles/{vin}")
+    fun deleteVehicleByVin(@Path("vin") vin: String): Call<Unit>
+    @DELETE("api/gascards/{cn}")
+    fun deleteGasCardByCardNum(@Path("cn") cn: String): Call<Unit>
     //endregion
 }

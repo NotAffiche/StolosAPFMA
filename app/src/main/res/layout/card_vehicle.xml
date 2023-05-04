@@ -3,67 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#73E48B"
+    android:background="#70EDD0"
     android:layout_margin="15dp"
     android:orientation="vertical"
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/tvVin"
+        android:id="@+id/tvVehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="30sp"
-        tools:text="VIN"/>
-
-    <TextView
-        android:id="@+id/tvLicensePlate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        tools:text="LP"/>
-    <TextView
-        android:id="@+id/tvBrandModel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="BrandModel"/>
-    <TextView
-        android:id="@+id/tvFuelType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="FT"/>
-    <TextView
-        android:id="@+id/tvVehicleType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="VT"/>
-    <TextView
-        android:id="@+id/tvColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="Color"/>
-    <TextView
-        android:id="@+id/tvDoors"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="#doors"/>
-    <TextView
-        android:id="@+id/tvDriver"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        tools:text="DriverID"/>
+        tools:text="Vehicle"/>
 
 </LinearLayout>

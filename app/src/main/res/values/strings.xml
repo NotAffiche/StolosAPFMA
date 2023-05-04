@@ -1,7 +1,37 @@
 <resources>
     <string name="app_name">StolosAPFMA</string>
 
-    <string name="drivers">Drivers</string>
-    <string name="vehicles">Vehicles</string>
-    <string name="fuelcards">Fuel Cards</string>
+    <string-array name="licenses">
+        <item>AM</item>
+        <item>A1</item>
+        <item>A2</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C1</item>
+        <item>C</item>
+        <item>D1</item>
+        <item>D</item>
+        <item>BE</item>
+        <item>C1E</item>
+        <item>CE</item>
+        <item>D1E</item>
+        <item>DE</item>
+        <item>G</item>
+    </string-array>
+    <string-array name="fueltypes">
+        <item>Unknown</item>
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>Electric</item>
+        <item>LPG</item>
+        <item>PetrolHybrid</item>
+        <item>DieselHybrid</item>
+    </string-array>
+    <string-array name="vehicletypes">
+        <item>Unknown</item>
+        <item>Car</item>
+        <item>Van</item>
+        <item>Truck</item>
+        <item>Bus</item>
+    </string-array>
 </resources>

@@ -1,17 +1,17 @@
 package me.adbi.stolosapfma.adapters
 
-import android.util.Log
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import me.adbi.stolosapfma.ActivityDetailVehicle
 import me.adbi.stolosapfma.R
-import me.adbi.stolosapfma.models.DriverModel
 import me.adbi.stolosapfma.models.VehicleModel
 
-class VehicleAdapter(objects:ArrayList<VehicleModel>) : RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder>() {
+class VehicleAdapter(var context: Context, objects:ArrayList<VehicleModel>) : RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder>() {
 
     private val vehicles = objects
 
@@ -30,37 +30,12 @@ class VehicleAdapter(objects:ArrayList<VehicleModel>) : RecyclerView.Adapter<Veh
     }
 
     inner class VehicleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvVin: TextView = itemView.findViewById(R.id.tvVin)
-        private val tvLicensePlate: TextView = itemView.findViewById(R.id.tvLicensePlate)
-        private val tvBrandModel: TextView = itemView.findViewById(R.id.tvBrandModel)
-        private val tvFuelType: TextView = itemView.findViewById(R.id.tvFuelType)
-        private val tvVehicleType: TextView = itemView.findViewById(R.id.tvVehicleType)
-        private val tvColor: TextView = itemView.findViewById(R.id.tvColor)
-        private val tvDoors: TextView = itemView.findViewById(R.id.tvDoors)
-        private val tvDriver: TextView = itemView.findViewById(R.id.tvDriver)
-
+        private val tvVehicle: TextView = itemView.findViewById(R.id.tvVehicle)
         fun bindView(v: VehicleModel) {
-            tvVin.text = "${v.vin}"
-            tvLicensePlate.text = "${v.licensePlate}"
-            tvBrandModel.text = "${v.brandModel}"
-            tvFuelType.text = "${v.fuelType}"
-            tvVehicleType.text = "${v.vehicleType}"
-            tvColor.text = "Unknown color"
-            tvDoors.text = "Unknown door amount"
-            tvDriver.text = "No driver"
-            if (v.color!=null) {
-                tvColor.text = "${v.color}"
+            tvVehicle.text = "${v.brandModel} - ${v.licensePlate}"
+            itemView.setOnClickListener{
+                context.startActivity(Intent(context, ActivityDetailVehicle::class.java).putExtra("vehicleVin", v.vin))
             }
-            if (v.doors!=null) {
-                tvDoors.text = "${v.doors.toString()}"
-            }
-            if (v.driverId!=null) {
-                tvDriver.text = "${v.driverId.toString()}"
-            }
-
-            itemView.setOnClickListener(OnClickListener {
-                Log.d("TAG", "CLICKED ON ${v.vin} - ${v.licensePlate}")
-            })
         }
     }
 }

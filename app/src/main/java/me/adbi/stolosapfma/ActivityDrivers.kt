@@ -18,16 +18,21 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.InputStream
+import java.security.KeyStore
 import java.security.SecureRandom
+import java.security.cert.Certificate
+import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
+import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
 
 class ActivityDrivers : ComponentActivity() {
 
-    private val BASE_URL: String = "https://affiche.me:7144"//"https://jsonplaceholder.typicode.com"
+    private val BASE_URL: String = "https://affiche.me:7144"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +40,41 @@ class ActivityDrivers : ComponentActivity() {
 
         val deletedInfo: String? = intent.getStringExtra("DELETED-INFO")
         if (!deletedInfo.isNullOrBlank()) {
-            Toast.makeText(this, "$deletedInfo verwijderd.", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "$deletedInfo deleted.", Toast.LENGTH_SHORT)
         }
 
-        val rv: RecyclerView = findViewById<RecyclerView>(R.id.rvDrivers)
+        val rv: RecyclerView = findViewById(R.id.rvDrivers)
+
+        //region ACCEPT_SPECIFIC_TRUSTED_CERTIFICATE
+        fun readCertificateFromFile(filePath: InputStream): Certificate {
+            //val file = File(filePath)
+            //val inputStream = FileInputStream(file)
+            val certificateFactory = CertificateFactory.getInstance("X.509")
+            val certificate = certificateFactory.generateCertificate(filePath)
+            filePath.close()
+            return certificate
+        }
+
+        val keyStore = KeyStore.getInstance(KeyStore.getDefaultType())
+        keyStore.load(null, null)
+        val certificate = readCertificateFromFile(assets.open("localhost.pem"))
+        keyStore.setCertificateEntry("server_cert", certificate)
+
+        val trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
+        trustManagerFactory.init(keyStore)
+
+        val trustManagers = trustManagerFactory.trustManagers
+        val sslContext = SSLContext.getInstance("TLS")
+        sslContext.init(null, trustManagers, null)
+
+        val okHttpClient = OkHttpClient.Builder()
+            .sslSocketFactory(sslContext.socketFactory, trustManagers[0] as X509TrustManager)
+            .hostnameVerifier{_,_ -> true}
+            .build()
+        //endregion
 
         //region IGNORE_UNTRUSTED_HTTPS
+        /*
         val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
             override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
             override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
@@ -51,7 +85,9 @@ class ActivityDrivers : ComponentActivity() {
         val okHttpClient = OkHttpClient.Builder()
             .sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
             .hostnameVerifier { _, _ -> true }
+            .addInterceptor(aLogger)
             .build()
+        */
         //endregion
 
         val retrofit: Retrofit = Retrofit.Builder()
@@ -62,9 +98,9 @@ class ActivityDrivers : ComponentActivity() {
         val api: ApiService = retrofit.create(ApiService::class.java)
 
         val btnAddDriver: Button = findViewById(R.id.btnAddDriver)
-        btnAddDriver.setOnClickListener(View.OnClickListener {
+        btnAddDriver.setOnClickListener{
             startActivity(Intent(this@ActivityDrivers, ActivityDetailDriver::class.java).putExtra("driverID", 0))
-        })
+        }
 
         api.getDrivers().enqueue(object : Callback<ArrayList<DriverModel>> {
             override fun onResponse(call: Call<ArrayList<DriverModel>>, response: Response<ArrayList<DriverModel>>) {
@@ -76,7 +112,7 @@ class ActivityDrivers : ComponentActivity() {
                 }
             }
             override fun onFailure(call: Call<ArrayList<DriverModel>>, t: Throwable) {
-                Log.e("ADBILOG", t.message.toString())
+                Log.e("ADBILOGSTOLOS", t.message.toString())
             }
         })
     }

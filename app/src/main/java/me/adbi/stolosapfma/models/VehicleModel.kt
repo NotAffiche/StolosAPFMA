@@ -6,8 +6,8 @@ data class VehicleModel(
     val licensePlate: String,
     val fuelType: String,
     val vehicleType: String,
-    val color: String?,
-    val doors: Int?,
+    val color: String? = null,
+    val doors: Int? = null,
 
-    val driverId: Int?
+    val driverId: Int? = null
 )

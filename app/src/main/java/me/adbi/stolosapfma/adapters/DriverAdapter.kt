@@ -2,10 +2,8 @@ package me.adbi.stolosapfma.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -35,9 +33,9 @@ class DriverAdapter(var context: Context, objects:ArrayList<DriverModel>) : Recy
         private val tvName: TextView = itemView.findViewById(R.id.tvName)
         fun bindView(d: DriverModel) {
             tvName.text = "${d.firstName} ${d.lastName}"
-            itemView.setOnClickListener(OnClickListener {
+            itemView.setOnClickListener{
                 context.startActivity(Intent(context, ActivityDetailDriver::class.java).putExtra("driverID", d.driverID))
-            })
+            }
         }
     }
 }
