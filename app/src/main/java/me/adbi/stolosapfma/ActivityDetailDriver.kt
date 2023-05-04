@@ -1,5 +1,6 @@
 package me.adbi.stolosapfma
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -46,12 +47,6 @@ class ActivityDetailDriver : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.card_detail_driver)
-
-        val aLogger = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                Log.i("STOLOS HTTP", message)
-            }
-        })
 
         //region ACCEPT_SPECIFIC_TRUSTED_CERTIFICATE
         fun readCertificateFromFile(filePath: InputStream): Certificate {
@@ -147,14 +142,14 @@ class ActivityDetailDriver : ComponentActivity() {
             api.getDriverById(driverId).enqueue(object : Callback<DriverModel> {
                 override fun onResponse(call: Call<DriverModel>, response: Response<DriverModel>) {
                     if (response.isSuccessful) {
-                        Log.i("SUCCESS GET DETAIL", response.body().toString())
+                        Log.i("ADBILOGSTOLOS", response.body().toString())
                         //region FILL EDIT TEXTS
                         val d: DriverModel = response.body()!!
                         evFirstName.text = Editable.Factory.getInstance().newEditable(d.firstName)
                         evLastName.text = Editable.Factory.getInstance().newEditable(d.lastName)
                         evBirthDate.text = Editable.Factory.getInstance().newEditable(d.birthDate.split("T")[0])
                         evRRN.text = Editable.Factory.getInstance().newEditable(d.natRegNum)
-                        evLicenses.text = Editable.Factory.getInstance().newEditable(d.licenses.joinToString(prefix = "[", separator = ",", postfix = "]"))
+                        evLicenses.text = Editable.Factory.getInstance().newEditable(d.licenses.joinToString(separator = ","))
                         evAddress.text = Editable.Factory.getInstance().newEditable("")
                         evVehicle.text = Editable.Factory.getInstance().newEditable("")
                         evAddress.text = Editable.Factory.getInstance().newEditable("")
@@ -171,19 +166,16 @@ class ActivityDetailDriver : ComponentActivity() {
 
                         //region REGISTER UPDATE
                         btnSave.setOnClickListener(View.OnClickListener {
-                            var newD: DriverModel = DriverModel(driverId, evFirstName.text.toString(), evLastName.text.toString(), evBirthDate.text.toString(),
+                            var updatedD = DriverModel(driverId, evFirstName.text.toString(), evLastName.text.toString(), evBirthDate.text.toString(),
                             evRRN.text.toString(), evLicenses.text.toString().split(","), evAddress.text.toString(), evVehicle.text.toString(), evGasCard.text.toString())
-                            val call: Call<Void> = api.updateDriverById(newD.driverID!!, newD)
-                            call.enqueue(object : Callback<Void> {
-                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                                    Log.i("SUCCESS UPDATE DETAIL ${driverId}", response.code().toString())
-                                    Log.i("SUCCESS UPDATE DETAIL ${driverId}", response.body().toString())
-                                    Log.i("SUCCESS UPDATE DETAIL ${driverId}", response.message().toString())
-                                    Log.i("SUCCESS UPDATE DETAIL ${driverId}", response.headers().toString())
+                            val call: Call<Unit> = api.updateDriverById(updatedD)
+                            call.enqueue(object : Callback<Unit> {
+                                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                                    startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java))
                                 }
 
-                                override fun onFailure(call: Call<Void>, t: Throwable) {
-                                    Log.e("ERROR", t.message.toString())
+                                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                                    Log.e("ADBILOGSTOLOS", t.message.toString())
                                 }
                             })
                         })
@@ -191,26 +183,23 @@ class ActivityDetailDriver : ComponentActivity() {
 
                         //region REGISTER DELETE
                         btnDelete.setOnClickListener {
-                            val client = OkHttpClient.Builder()
-                            /*
                             val call: Call<Unit> = api.deleteDriverById(driverId)
                             call.enqueue(object : Callback<Unit> {
                                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                                     if (response.isSuccessful) {
-                                        Log.i("SUCCESS DELETE ${driverId}", response.body().toString())
+                                        startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java).putExtra("DELETED-INFO",
+                                            "${d.firstName} ${d.lastName}"))
                                     } else {
-                                        Log.e("FAIL DELETE ${driverId}", response.code().toString())
-                                        Log.e("FAIL DELETE ${driverId}", response.body().toString())
-                                        Log.e("FAIL DELETE ${driverId}", response.message().toString())
-                                        Log.e("FAIL DELETE ${driverId}", response.headers().toString())
+                                        Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                        Log.e("ADBILOGSTOLOS ${driverId}", response.code().toString())
                                     }
                                 }
 
                                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                    Log.e("ERROR", t.message.toString())
+                                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                    Log.e("ADBILOGSTOLOS", t.message.toString())
                                 }
                             })
-                            */
                         }
                         //endregion
                     }
@@ -218,22 +207,41 @@ class ActivityDetailDriver : ComponentActivity() {
 
                 override fun onFailure(call: Call<DriverModel>, t: Throwable) {
                     Toast.makeText(this@ActivityDetailDriver, "Error", Toast.LENGTH_SHORT)
-                    Log.e("error", t.message.toString())
+                    Log.e("ADBILOGSTOLOS", t.message.toString())
                 }
             })
         } else {// code for creating new driver
             btnDelete.setVisibility(View.GONE)
             //region REGISTER ADD
 
-            btnSave.setOnClickListener(View.OnClickListener {
+            btnSave.setOnClickListener{
                 var licenses = ArrayList<String>()
                 for (l in evLicenses.text.toString().split(",")) {
                     licenses.add("$l")
                 }
-                val newD = DriverModel(driverId, evFirstName.text.toString(), evLastName.text.toString(), evBirthDate.text.toString(),
-                    evRRN.text.toString(), licenses, evAddress.text.toString(), evVehicle.text.toString(), evGasCard.text.toString())
-                Log.i("INFO TEST LOG", newD.toString())
-            })
+                var cDriver = DriverModel(
+                null,
+                    evFirstName.text.toString(),
+                    evLastName.text.toString(),
+                    evBirthDate.text.toString(),
+                    evRRN.text.toString(),
+                    licenses,
+                    evAddress.text.toString(),
+                    evVehicle.text.toString(),
+                    evGasCard.text.toString()
+                )
+
+                Log.i("ADBILOGSTOLOS", cDriver.toString())
+                api.addDriver(cDriver).enqueue(object : Callback<Unit> {
+                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                        startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java))
+                    }
+
+                    override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        Log.e("ADBILOGSTOLOS", t.message.toString())
+                    }
+                })
+            }
             //endregion
         }
     }

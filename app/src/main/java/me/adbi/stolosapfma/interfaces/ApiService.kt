@@ -17,35 +17,35 @@ import retrofit2.http.Path
 interface ApiService {
 
     //region GET ALL
-    @GET("Driver")
+    @GET("api/drivers")
     fun getDrivers(): Call<ArrayList<DriverModel>>
-    @GET("Vehicle")
+    @GET("api/vehicles")
     fun getVehicles(): Call<ArrayList<VehicleModel>>
-    @GET("GasCard")
+    @GET("api/gascards")
     fun getGasCards(): Call<ArrayList<GasCardModel>>
     //endregion
 
     //region GET SPECIFIC
-    @GET("Driver/{id}")
+    @GET("api/drivers/{id}")
     fun getDriverById(@Path("id") driverId: Int): Call<DriverModel>
-    @GET("Vehicle/{vin}")
+    @GET("api/vehicles/{vin}")
     fun getVehicleByVIN(@Path("vin") vin: String): Call<VehicleModel>
-    @GET("GasCard/{cardNum}")
+    @GET("api/gascards/{cardNum}")
     fun getGasCardByCardNum(@Path("cardNum") cardNum: String): Call<GasCardModel>
     //endregion
 
     //region POST
-    @POST("Driver")
-    fun addDriver(@Body driverModel: DriverModel): Call<Void>
+    @POST("api/drivers")
+    fun addDriver(@Body driverModel: DriverModel): Call<Unit>
     //endregion
 
     //region PUT
-    @PUT("Driver/{id}")
-    fun updateDriverById(@Path("id") driverId: Int, @Body driverModel: DriverModel): Call<Void>
+    @PUT("api/drivers")
+    fun updateDriverById(@Body driverModel: DriverModel): Call<Unit>
     //endregion
 
     //region DELETE
-    @DELETE("Driver/{id}")
+    @DELETE("api/drivers/{id}")
     fun deleteDriverById(@Path("id") driverId: Int): Call<Unit>
     //endregion
 }

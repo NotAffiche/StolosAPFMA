@@ -33,6 +33,11 @@ class ActivityDrivers : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drivers)
 
+        val deletedInfo: String? = intent.getStringExtra("DELETED-INFO")
+        if (!deletedInfo.isNullOrBlank()) {
+            Toast.makeText(this, "$deletedInfo verwijderd.", Toast.LENGTH_SHORT)
+        }
+
         val rv: RecyclerView = findViewById<RecyclerView>(R.id.rvDrivers)
 
         //region IGNORE_UNTRUSTED_HTTPS
@@ -71,7 +76,7 @@ class ActivityDrivers : ComponentActivity() {
                 }
             }
             override fun onFailure(call: Call<ArrayList<DriverModel>>, t: Throwable) {
-                Log.e("error", t.message.toString())
+                Log.e("ADBILOG", t.message.toString())
             }
         })
     }
