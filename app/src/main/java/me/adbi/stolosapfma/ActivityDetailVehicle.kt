@@ -33,7 +33,7 @@ class ActivityDetailVehicle : ComponentActivity() {
         tvVin.text = "VIN:"
         val tvVinVal = findViewById<TextView>(R.id.tvVinVal)
         val tvBrandModel = findViewById<TextView>(R.id.tvBrandModel)
-        tvBrandModel.text = "Brand Mode:"
+        tvBrandModel.text = "Brand Model:"
         val tvLicensePlate = findViewById<TextView>(R.id.tvLicensePlate)
         tvLicensePlate.text = "License Plate:"
         val tvFuelTypes = findViewById<TextView>(R.id.tvFuelTypes)
