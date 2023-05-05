@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import me.adbi.stolosapfma.factories.RetrofitFactory
 import me.adbi.stolosapfma.interfaces.ApiService
 import me.adbi.stolosapfma.models.DriverModel
@@ -23,6 +24,12 @@ class ActivityDetailDriver : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.card_detail_driver)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java))
+            }
+        })
 
         val api: ApiService = RetrofitFactory(this).Retrofit().create(ApiService::class.java)
 

@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.adbi.stolosapfma.adapters.VehicleAdapter
@@ -22,6 +23,12 @@ class ActivityVehicles : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vehicles)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@ActivityVehicles, MainActivity::class.java))
+            }
+        })
 
         val api: ApiService = RetrofitFactory(this).Retrofit().create(ApiService::class.java)
 

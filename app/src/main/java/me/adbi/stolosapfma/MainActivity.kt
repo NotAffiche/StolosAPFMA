@@ -5,15 +5,23 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import me.adbi.stolosapfma.interfaces.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.system.exitProcess
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finishActivity(-1)
+            }
+        })
 
         val btnDrivers = findViewById<Button>(R.id.btnDrivers)
         val btnVehicles = findViewById<Button>(R.id.btnVehicles)
