@@ -1,5 +1,7 @@
 package me.adbi.stolosapfma.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +9,12 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import me.adbi.stolosapfma.ActivityDetailDriver
+import me.adbi.stolosapfma.ActivityDetailGasCard
 import me.adbi.stolosapfma.R
-import me.adbi.stolosapfma.models.DriverModel
 import me.adbi.stolosapfma.models.GasCardModel
 
-class GasCardAdapter(objects:ArrayList<GasCardModel>) : RecyclerView.Adapter<GasCardAdapter.GasCardViewHolder>() {
+class GasCardAdapter(val context: Context, objects:ArrayList<GasCardModel>) : RecyclerView.Adapter<GasCardAdapter.GasCardViewHolder>() {
 
     private val gasCards = objects
 
@@ -31,28 +34,11 @@ class GasCardAdapter(objects:ArrayList<GasCardModel>) : RecyclerView.Adapter<Gas
 
     inner class GasCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvCardNumber: TextView = itemView.findViewById(R.id.tvCardNumber)
-        private val tvExpiringDate: TextView = itemView.findViewById(R.id.tvExpiringDate)
-        private val tvPin: TextView = itemView.findViewById(R.id.tvPin)
-        private val tvFuelTypes: TextView = itemView.findViewById(R.id.tvFuelTypes)
-        private val tvBlocked: TextView = itemView.findViewById(R.id.tvBlocked)
-        private val tvDriver: TextView = itemView.findViewById(R.id.tvDriver)
         fun bindView(gc: GasCardModel) {
             tvCardNumber.text = "${gc.cardNumber}"
-            tvExpiringDate.text = "${gc.expiringDate.split("T")[0]}"
-            tvPin.text = "No pin"
-            tvFuelTypes.text = "${gc.fuelTypes.joinToString(prefix = "[", separator = ", ", postfix = "]")}"
-            tvBlocked.text = "Blocked: ${gc.blocked.toString()}"
-            tvDriver.text = "No driver"
-            if (gc.pincode!=null) {
-                tvPin.text = "${gc.pincode.toString()}"
-            }
-            if (gc.driverId!=null) {
-                tvDriver.text = "${gc.driverId.toString()}"
-            }
 
-            itemView.setOnClickListener(OnClickListener {
-                Log.d("TAG", "CLICKED ON ${gc.cardNumber}")
-            })
+            itemView.setOnClickListener {
+                context.startActivity(Intent(context, ActivityDetailGasCard::class.java).putExtra("gasCardNum", gc.cardNumber))            }
         }
     }
 }

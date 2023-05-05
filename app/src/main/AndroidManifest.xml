@@ -39,6 +39,11 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.StolosAPFMA"/>
         <activity
+            android:name=".ActivityDetailGasCard"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.StolosAPFMA"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#70EDD0"
+    android:background="#CFACCE"
     android:layout_margin="15dp"
     android:orientation="vertical"
     android:padding="15dp">
@@ -20,17 +20,17 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvVin"
+            android:id="@+id/tvCardNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="VIN:" />
+            tools:text="Card Number:" />
 
         <TextView
-            android:id="@+id/tvVinVal"
+            android:id="@+id/tvCardNumberVal"
             android:layout_width="165sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
@@ -38,16 +38,16 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:gravity="center"
-            tools:text="VIN" />
+            tools:text="Cardnum" />
         <EditText
-            android:id="@+id/evVin"
+            android:id="@+id/evCardNumber"
             android:layout_width="165sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="VIN" />
+            tools:text="Cardnum" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -55,24 +55,24 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvBrandModel"
+            android:id="@+id/tvExpiringDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Brand Model:" />
+            tools:text="Expiring Date:" />
 
         <EditText
-            android:id="@+id/evBrandModel"
+            android:id="@+id/evExpiringDate"
             android:layout_width="165sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Brand Model"/>
+            tools:text="Exp dat"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -80,24 +80,24 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvLicensePlate"
+            android:id="@+id/tvPincode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="License Plate:" />
+            tools:text="Pincode:" />
 
         <EditText
-            android:id="@+id/evLicensePlate"
+            android:id="@+id/evPincode"
             android:layout_width="165sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="License Plate" />
+            tools:text="Pin"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -112,68 +112,17 @@
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Fuel Type:" />
-
-        <Spinner
-            android:id="@+id/spFuelTypes"
-            android:layout_width="165sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:entries="@array/fueltypes"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvVehicleType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            tools:text="Vehicle Type:" />
-
-        <Spinner
-            android:id="@+id/spVehicleTypes"
-            android:layout_width="165sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:entries="@array/vehicletypes"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            tools:text="Color:" />
+            tools:text="Fuel types:" />
 
         <EditText
-            android:id="@+id/evColor"
+            android:id="@+id/evFuelTypes"
             android:layout_width="165sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Color"/>
+            tools:text="FT's"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -181,24 +130,24 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvDoors"
+            android:id="@+id/tvBlocked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Doors:" />
+            tools:text="Blocked:" />
 
         <EditText
-            android:id="@+id/evDoors"
+            android:id="@+id/evBlocked"
             android:layout_width="165sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Doors"/>
+            tools:text="Blckd"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -223,18 +172,20 @@
             android:layout_centerInParent="true"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Driver Id"/>
+            tools:text="Drv id"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_height="55sp"
             android:layout_width="150sp"
+            android:layout_height="55sp"
             android:layout_alignParentLeft="true"
-            android:text="SAVE"/>
+            android:text="SAVE" />
 
         <Button
             android:id="@+id/btnDelete"
@@ -243,7 +194,6 @@
             android:layout_alignParentRight="true"
             android:text="DELETE" />
     </RelativeLayout>
-
 
 
 </LinearLayout>

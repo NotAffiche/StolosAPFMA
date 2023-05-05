@@ -11,7 +11,7 @@ import me.adbi.stolosapfma.ActivityDetailDriver
 import me.adbi.stolosapfma.R
 import me.adbi.stolosapfma.models.DriverModel
 
-class DriverAdapter(var context: Context, objects:ArrayList<DriverModel>) : RecyclerView.Adapter<DriverAdapter.DriverViewHolder>() {
+class DriverAdapter(val context: Context, objects:ArrayList<DriverModel>) : RecyclerView.Adapter<DriverAdapter.DriverViewHolder>() {
 
     private val drivers = objects
 

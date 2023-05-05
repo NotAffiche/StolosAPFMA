@@ -11,7 +11,7 @@ import me.adbi.stolosapfma.ActivityDetailVehicle
 import me.adbi.stolosapfma.R
 import me.adbi.stolosapfma.models.VehicleModel
 
-class VehicleAdapter(var context: Context, objects:ArrayList<VehicleModel>) : RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder>() {
+class VehicleAdapter(val context: Context, objects:ArrayList<VehicleModel>) : RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder>() {
 
     private val vehicles = objects
 
