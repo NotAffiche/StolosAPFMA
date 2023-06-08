@@ -129,15 +129,29 @@
             android:textSize="20sp"
             tools:text="Licenses:" />
 
-        <EditText
-            android:id="@+id/evLicenses"
-            android:layout_width="165sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            tools:text="Licenses"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvLicensesSelect"
+                android:layout_width="165sp"
+                android:layout_height="53sp"
+                android:layout_alignParentRight="true"
+                android:textAlignment="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                tools:hint="Licenses"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_arrow_down"
+                />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
