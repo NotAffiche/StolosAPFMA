@@ -2,6 +2,7 @@ package me.adbi.stolosapfma
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -21,6 +22,9 @@ import me.adbi.stolosapfma.models.GasCardModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 class ActivityDetailGasCard : ComponentActivity() {
@@ -56,7 +60,7 @@ class ActivityDetailGasCard : ComponentActivity() {
 
         //region EDIT TEXTS
         val evCardNumber = findViewById<EditText>(R.id.evCardNumber)
-        val evExpiringDate = findViewById<EditText>(R.id.evExpiringDate)
+        val tvExpiringDateDisplayValue = findViewById<TextView>(R.id.tvExpiringDateDisplayValue)
         val evPincode = findViewById<EditText>(R.id.evPincode)
         val tvFuelTypesSelect = findViewById<TextView>(R.id.tvFuelTypesSelect)
         val cbBlocked = findViewById<CheckBox>(R.id.cbBlocked)
@@ -67,6 +71,31 @@ class ActivityDetailGasCard : ComponentActivity() {
         val btnSave: Button = findViewById(R.id.btnSave)
         val btnDelete = findViewById<Button>(R.id.btnDelete)
         //endregion
+
+        //datepicker
+        var year: Int = 1970
+        var month: Int = 1
+        var day: Int = 1
+        tvExpiringDateDisplayValue.setOnClickListener {
+
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { _, selectedYear, selectedMonth, selectedDay ->
+                    val calendar = Calendar.getInstance()
+                    calendar.set(selectedYear, selectedMonth, selectedDay)
+                    year = selectedYear
+                    month = selectedMonth + 1
+                    day = selectedDay
+                    val selDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+                    tvExpiringDateDisplayValue.text = selDate
+                },
+                year,
+                month - 1,
+                day
+            )
+
+            datePickerDialog.show()
+        }
 
         //region licenses select
         val fueltypes = resources.getStringArray(R.array.fueltypes)
@@ -123,7 +152,12 @@ class ActivityDetailGasCard : ComponentActivity() {
                         //region FILL EDIT TEXTS
                         val gc: GasCardModel = response.body()!!
                         tvCardNumberVal.text = gc.cardNumber
-                        evExpiringDate.text = Editable.Factory.getInstance().newEditable(gc.expiringDate.split("T")[0])
+                        tvExpiringDateDisplayValue.text = Editable.Factory.getInstance().newEditable(gc.expiringDate.split("T")[0])
+                        Log.i("ADBILOGSTOLOS", tvExpiringDateDisplayValue.text.toString())
+                        year = tvExpiringDateDisplayValue.text.split("-")[0].toInt()
+                        month = tvExpiringDateDisplayValue.text.split("-")[1].toInt()
+                        day = tvExpiringDateDisplayValue.text.split("-")[2].toInt()
+                        Log.i("ADBILOGSTOLOS", "year: $year; month: $month; day: $day")
                         evPincode.text = Editable.Factory.getInstance().newEditable("")
                         //tvFuelTypesSelect.text = Editable.Factory.getInstance().newEditable(gc.fuelTypes.joinToString(separator = ","))
                         //
@@ -165,7 +199,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                             }
                             var updatedGC = GasCardModel(
                                 gasCardNum,
-                                evExpiringDate.text.toString(),
+                                tvExpiringDateDisplayValue.text.toString(),
                                 pin,
                                 tvFuelTypesSelect.text.toString().split(","),
                                 cbBlocked.isChecked,
@@ -229,7 +263,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                 }
                 var createdGC = GasCardModel(
                     evCardNumber.text.toString(),
-                    evExpiringDate.text.toString(),
+                    tvExpiringDateDisplayValue.text.toString(),
                     pin,
                     tvFuelTypesSelect.text.split(","),
                     cbBlocked.isChecked,

@@ -64,8 +64,8 @@
             android:textSize="20sp"
             tools:text="Expiring Date:" />
 
-        <EditText
-            android:id="@+id/evExpiringDate"
+        <TextView
+            android:id="@+id/tvExpiringDateDisplayValue"
             android:layout_width="165sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
