@@ -12,7 +12,7 @@
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
         android:layout_height="150sp"
-        android:layout_margin="20sp"
+        android:layout_margin="15sp"
         android:src="@drawable/logo" />
 
     <RelativeLayout
@@ -26,27 +26,27 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="VIN:" />
 
         <TextView
             android:id="@+id/tvVinVal"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:gravity="center"
             tools:text="VIN" />
         <EditText
             android:id="@+id/evVin"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="VIN" />
     </RelativeLayout>
 
@@ -61,17 +61,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Brand Model:" />
 
         <EditText
             android:id="@+id/evBrandModel"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Brand Model"/>
     </RelativeLayout>
 
@@ -86,17 +86,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="License Plate:" />
 
         <EditText
             android:id="@+id/evLicensePlate"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="License Plate" />
     </RelativeLayout>
 
@@ -111,18 +111,18 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Fuel Type:" />
 
         <Spinner
             android:id="@+id/spFuelTypes"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:entries="@array/fueltypes"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
@@ -137,18 +137,18 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Vehicle Type:" />
 
         <Spinner
             android:id="@+id/spVehicleTypes"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:entries="@array/vehicletypes"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -162,17 +162,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Color:" />
 
         <EditText
             android:id="@+id/evColor"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Color"/>
     </RelativeLayout>
 
@@ -187,17 +187,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Doors:" />
 
         <EditText
             android:id="@+id/evDoors"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Doors"/>
     </RelativeLayout>
 
@@ -212,17 +212,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Driver Id:" />
 
         <EditText
             android:id="@+id/evDriver"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Driver Id"/>
     </RelativeLayout>
     <RelativeLayout

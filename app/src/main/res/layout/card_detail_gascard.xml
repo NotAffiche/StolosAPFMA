@@ -12,7 +12,7 @@
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
         android:layout_height="150sp"
-        android:layout_margin="20sp"
+        android:layout_margin="15sp"
         android:src="@drawable/logo" />
 
     <RelativeLayout
@@ -26,27 +26,27 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Card Number:" />
 
         <TextView
             android:id="@+id/tvCardNumberVal"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:gravity="center"
             tools:text="Cardnum" />
         <EditText
             android:id="@+id/evCardNumber"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Cardnum" />
     </RelativeLayout>
 
@@ -61,17 +61,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Expiring Date:" />
 
         <TextView
             android:id="@+id/tvExpiringDateDisplayValue"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Exp dat"/>
     </RelativeLayout>
 
@@ -86,17 +86,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Pincode:" />
 
         <EditText
             android:id="@+id/evPincode"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Pin"/>
     </RelativeLayout>
 
@@ -111,7 +111,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Fuel types:" />
 
         <RelativeLayout
@@ -120,14 +120,14 @@
 
             <TextView
                 android:id="@+id/tvFuelTypesSelect"
-                android:layout_width="165sp"
+                android:layout_width="180sp"
                 android:layout_height="53sp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:textAlignment="center"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 tools:hint="Fueltypes"/>
 
             <ImageView
@@ -152,7 +152,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Blocked:" />
 
         <CheckBox
@@ -175,17 +175,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Driver Id:" />
 
         <EditText
             android:id="@+id/evDriver"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Drv id"/>
     </RelativeLayout>
 

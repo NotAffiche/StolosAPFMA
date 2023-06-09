@@ -12,7 +12,7 @@
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
         android:layout_height="150sp"
-        android:layout_margin="20sp"
+        android:layout_margin="15sp"
         android:src="@drawable/logo" />
 
     <RelativeLayout
@@ -26,17 +26,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="First Name:" />
 
         <EditText
             android:id="@+id/evFirstName"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="FirstName" />
     </RelativeLayout>
 
@@ -51,17 +51,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Last Name:" />
 
         <EditText
             android:id="@+id/evLastName"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="LastName"/>
     </RelativeLayout>
 
@@ -76,24 +76,24 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Birth Date:" />
 
         <TextView
             android:id="@+id/tvBirthDateDisplayValue"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="BirthDate"
             android:visibility="visible" />
 
         <DatePicker
             android:id="@+id/datePicker"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
@@ -114,17 +114,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="RRN:" />
 
         <EditText
             android:id="@+id/evRRN"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="RRN"/>
     </RelativeLayout>
 
@@ -139,7 +139,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Licenses:" />
 
         <RelativeLayout
@@ -148,14 +148,14 @@
 
             <TextView
                 android:id="@+id/tvLicensesSelect"
-                android:layout_width="165sp"
+                android:layout_width="180sp"
                 android:layout_height="53sp"
                 android:layout_alignParentRight="true"
                 android:textAlignment="center"
                 android:gravity="center"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 tools:hint="Licenses"
                 />
 
@@ -181,17 +181,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Address:" />
 
         <EditText
             android:id="@+id/evAddress"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Address"/>
     </RelativeLayout>
 
@@ -206,17 +206,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Vehicle VIN:" />
 
         <EditText
             android:id="@+id/evVehicle"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="Vehicle VIN"/>
     </RelativeLayout>
 
@@ -231,17 +231,17 @@
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="GasCard Num:" />
 
         <EditText
             android:id="@+id/evGasCard"
-            android:layout_width="165sp"
+            android:layout_width="180sp"
             android:layout_height="53sp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:text="GasCard Num"/>
     </RelativeLayout>
     <RelativeLayout
