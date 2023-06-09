@@ -2,6 +2,7 @@ package me.adbi.stolosapfma
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -21,6 +22,9 @@ import me.adbi.stolosapfma.models.DriverModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 class ActivityDetailDriver : ComponentActivity() {
@@ -62,13 +66,38 @@ class ActivityDetailDriver : ComponentActivity() {
         //region EDIT TEXTS
         val evFirstName = findViewById<EditText>(R.id.evFirstName)
         val evLastName = findViewById<EditText>(R.id.evLastName)
-        val evBirthDate = findViewById<EditText>(R.id.evBirthDate)
+        val tvBirthDateDisplayValue = findViewById<TextView>(R.id.tvBirthDateDisplayValue)
         val evRRN = findViewById<EditText>(R.id.evRRN)
         val tvLicensesSelect = findViewById<TextView>(R.id.tvLicensesSelect)
         val evAddress = findViewById<EditText>(R.id.evAddress)
         val evVehicle = findViewById<EditText>(R.id.evVehicle)
         val evGasCard = findViewById<EditText>(R.id.evGasCard)
         //endregion
+
+        //datepicker
+        var year: Int = 1970
+        var month: Int = 1
+        var day: Int = 1
+        tvBirthDateDisplayValue.setOnClickListener {
+
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { _, selectedYear, selectedMonth, selectedDay ->
+                    val calendar = Calendar.getInstance()
+                    calendar.set(selectedYear, selectedMonth, selectedDay)
+                    year = selectedYear
+                    month = selectedMonth + 1
+                    day = selectedDay
+                    val selDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+                    tvBirthDateDisplayValue.text = selDate
+                },
+                year,
+                month - 1,
+                day
+            )
+
+            datePickerDialog.show()
+        }
 
         // Format RRN EditText
         evRRN.addTextChangedListener(object : TextWatcher {
@@ -175,7 +204,12 @@ class ActivityDetailDriver : ComponentActivity() {
                         val d: DriverModel = response.body()!!
                         evFirstName.text = Editable.Factory.getInstance().newEditable(d.firstName)
                         evLastName.text = Editable.Factory.getInstance().newEditable(d.lastName)
-                        evBirthDate.text = Editable.Factory.getInstance().newEditable(d.birthDate.split("T")[0])
+                        tvBirthDateDisplayValue.text = Editable.Factory.getInstance().newEditable(d.birthDate.split("T")[0])
+                        Log.i("ADBILOGSTOLOS", tvBirthDateDisplayValue.text.toString())
+                        year = tvBirthDateDisplayValue.text.split("-")[0].toInt()
+                        month = tvBirthDateDisplayValue.text.split("-")[1].toInt()
+                        day = tvBirthDateDisplayValue.text.split("-")[2].toInt()
+                        Log.i("ADBILOGSTOLOS", "year: $year; month: $month; day: $day")
                         evRRN.text = Editable.Factory.getInstance().newEditable(d.natRegNum)
                         //
                         for (license in d.licenses) {
@@ -211,7 +245,7 @@ class ActivityDetailDriver : ComponentActivity() {
 
                         //region REGISTER UPDATE
                         btnSave.setOnClickListener(View.OnClickListener {
-                            var updatedD = DriverModel(driverId, evFirstName.text.toString(), evLastName.text.toString(), evBirthDate.text.toString(),
+                            var updatedD = DriverModel(driverId, evFirstName.text.toString(), evLastName.text.toString(), tvBirthDateDisplayValue.text.toString(),
                             evRRN.text.toString(), tvLicensesSelect.text.split(","), evAddress.text.toString(), evVehicle.text.toString(), evGasCard.text.toString())
                             val call: Call<Unit> = api.updateDriverById(updatedD)
                             call.enqueue(object : Callback<Unit> {
@@ -264,7 +298,7 @@ class ActivityDetailDriver : ComponentActivity() {
                 null,
                     evFirstName.text.toString(),
                     evLastName.text.toString(),
-                    evBirthDate.text.toString(),
+                    tvBirthDateDisplayValue.text.toString(),
                     evRRN.text.toString(),
                     tvLicensesSelect.text.split(","),
                     evAddress.text.toString(),
