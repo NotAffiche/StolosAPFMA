@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -68,6 +69,52 @@ class ActivityDetailDriver : ComponentActivity() {
         val evVehicle = findViewById<EditText>(R.id.evVehicle)
         val evGasCard = findViewById<EditText>(R.id.evGasCard)
         //endregion
+
+        // Format RRN EditText
+        evRRN.addTextChangedListener(object : TextWatcher {
+            private var isFormatting: Boolean = false
+            private val rrnPattern: String = "##.##.##-###.##"
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (isFormatting) {
+                    return
+                }
+
+                isFormatting = true
+
+                // Remove any existing formatting
+                val unformattedRRN = s?.toString()?.replace("[^0-9]".toRegex(), "")
+
+                if (unformattedRRN != null && unformattedRRN.isNotEmpty()) {
+                    val formattedRRN = StringBuilder()
+                    var currentIndex = 0
+
+                    for (i in rrnPattern.indices) {
+                        val currentPatternChar = rrnPattern[i]
+
+                        if (currentIndex >= unformattedRRN.length) {
+                            break
+                        }
+
+                        if (currentPatternChar == '#') {
+                            formattedRRN.append(unformattedRRN[currentIndex])
+                            currentIndex++
+                        } else {
+                            formattedRRN.append(currentPatternChar)
+                        }
+                    }
+
+                    evRRN.setText(formattedRRN)
+                    evRRN.setSelection(formattedRRN.length)
+                }
+
+                isFormatting = false
+            }
+        })
 
         //region BUTTONS
         val btnSave: Button = findViewById(R.id.btnSave)
