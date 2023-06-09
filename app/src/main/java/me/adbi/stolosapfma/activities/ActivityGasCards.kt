@@ -34,7 +34,7 @@ class ActivityGasCards : ComponentActivity() {
 
         val deletedInfo: String? = intent.getStringExtra("DELETED-INFO")
         if (!deletedInfo.isNullOrBlank()) {
-            Toast.makeText(this, "$deletedInfo deleted.", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "$deletedInfo deleted.", Toast.LENGTH_SHORT).show()
         }
 
         val rv: RecyclerView = findViewById(R.id.rvGasCards)
@@ -54,6 +54,7 @@ class ActivityGasCards : ComponentActivity() {
                 }
             }
             override fun onFailure(call: Call<ArrayList<GasCardModel>>, t: Throwable) {
+                Toast.makeText(this@ActivityGasCards, "Error", Toast.LENGTH_SHORT).show()
                 Log.e("error", t.message.toString())
             }
         })

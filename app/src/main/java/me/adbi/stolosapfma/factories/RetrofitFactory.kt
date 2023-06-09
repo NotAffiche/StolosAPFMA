@@ -16,7 +16,7 @@ import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
 class RetrofitFactory(context: Context) {
-    private val BASE_URL: String = "https://affiche.me:8200"
+    private val BASE_URL: String = "https://affiche.me:7144"
     private val ctx: Context = context
 
     fun Retrofit(): Retrofit {

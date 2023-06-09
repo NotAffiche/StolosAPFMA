@@ -202,6 +202,7 @@ class ActivityDetailDriver : ComponentActivity() {
                         Log.i("ADBILOGSTOLOS", response.body().toString())
                         //region FILL EDIT TEXTS
                         val d: DriverModel = response.body()!!
+                        Toast.makeText(this@ActivityDetailDriver, "DriverID: ${d.driverID}", Toast.LENGTH_SHORT).show()
                         evFirstName.text = Editable.Factory.getInstance().newEditable(d.firstName)
                         evLastName.text = Editable.Factory.getInstance().newEditable(d.lastName)
                         tvBirthDateDisplayValue.text = Editable.Factory.getInstance().newEditable(d.birthDate.split("T")[0])
@@ -269,13 +270,13 @@ class ActivityDetailDriver : ComponentActivity() {
                                         startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java).putExtra("DELETED-INFO",
                                             "${d.firstName} ${d.lastName}"))
                                     } else {
-                                        Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                        Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                                         Log.e("ADBILOGSTOLOS ${driverId}", response.code().toString())
                                     }
                                 }
 
                                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                                     Log.e("ADBILOGSTOLOS", t.message.toString())
                                 }
                             })
@@ -313,6 +314,7 @@ class ActivityDetailDriver : ComponentActivity() {
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        Toast.makeText(this@ActivityDetailDriver, "Error", Toast.LENGTH_SHORT).show()
                         Log.e("ADBILOGSTOLOS", t.message.toString())
                     }
                 })

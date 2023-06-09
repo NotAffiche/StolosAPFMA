@@ -34,7 +34,7 @@ class ActivityVehicles : ComponentActivity() {
 
         val deletedInfo: String? = intent.getStringExtra("DELETED-INFO")
         if (!deletedInfo.isNullOrBlank()) {
-            Toast.makeText(this, "$deletedInfo deleted.", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "$deletedInfo deleted.", Toast.LENGTH_SHORT).show()
         }
 
         val rv: RecyclerView = findViewById(R.id.rvVehicles)
@@ -54,6 +54,7 @@ class ActivityVehicles : ComponentActivity() {
                 }
             }
             override fun onFailure(call: Call<ArrayList<VehicleModel>>, t: Throwable) {
+                Toast.makeText(this@ActivityVehicles, "Error", Toast.LENGTH_SHORT).show()
                 Log.e("ADBILOGSTOLOS", t.message.toString())
             }
         })

@@ -155,13 +155,13 @@ class ActivityDetailVehicle : ComponentActivity() {
                                         startActivity(Intent(this@ActivityDetailVehicle, ActivityVehicles::class.java).putExtra("DELETED-INFO",
                                             "${v.brandModel} [+] ${v.licensePlate}"))
                                     } else {
-                                        Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                        Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                                         Log.e("ADBILOGSTOLOS ${vehicleVin}", response.code().toString())
                                     }
                                 }
 
                                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                                     Log.e("ADBILOGSTOLOS", t.message.toString())
                                 }
                             })
@@ -171,7 +171,7 @@ class ActivityDetailVehicle : ComponentActivity() {
                 }
 
                 override fun onFailure(call: Call<VehicleModel>, t: Throwable) {
-                    Toast.makeText(this@ActivityDetailVehicle, "Error", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ActivityDetailVehicle, "Error", Toast.LENGTH_SHORT).show()
                     Log.e("ADBILOGSTOLOS", t.message.toString())
                 }
             })
@@ -211,6 +211,7 @@ class ActivityDetailVehicle : ComponentActivity() {
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        Toast.makeText(this@ActivityDetailVehicle, "Error", Toast.LENGTH_SHORT).show()
                         Log.e("ADBILOGSTOLOS", t.message.toString())
                     }
                 })

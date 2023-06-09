@@ -226,13 +226,13 @@ class ActivityDetailGasCard : ComponentActivity() {
                                         startActivity(Intent(this@ActivityDetailGasCard, ActivityGasCards::class.java).putExtra("DELETED-INFO",
                                             "${gasCardNum}"))
                                     } else {
-                                        Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                        Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                                         Log.e("ADBILOGSTOLOS ${gasCardNum}", response.code().toString())
                                     }
                                 }
 
                                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT)
+                                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                                     Log.e("ADBILOGSTOLOS", t.message.toString())
                                 }
                             })
@@ -242,7 +242,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                 }
 
                 override fun onFailure(call: Call<GasCardModel>, t: Throwable) {
-                    Toast.makeText(this@ActivityDetailGasCard, "Error", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ActivityDetailGasCard, "Error", Toast.LENGTH_SHORT).show()
                     Log.e("ADBILOGSTOLOS", t.message.toString())
                 }
             })
@@ -276,6 +276,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        Toast.makeText(this@ActivityDetailGasCard, "Error", Toast.LENGTH_SHORT).show()
                         Log.e("ADBILOGSTOLOS", t.message.toString())
                     }
                 })

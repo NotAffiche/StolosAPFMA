@@ -34,7 +34,7 @@ class ActivityDrivers : ComponentActivity() {
 
         val deletedInfo: String? = intent.getStringExtra("DELETED-INFO")
         if (!deletedInfo.isNullOrBlank()) {
-            Toast.makeText(this, "$deletedInfo deleted.", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "$deletedInfo deleted.", Toast.LENGTH_SHORT).show()
         }
 
         val rv: RecyclerView = findViewById(R.id.rvDrivers)
@@ -54,6 +54,7 @@ class ActivityDrivers : ComponentActivity() {
                 }
             }
             override fun onFailure(call: Call<ArrayList<DriverModel>>, t: Throwable) {
+                Toast.makeText(this@ActivityDrivers, "Error", Toast.LENGTH_SHORT).show()
                 Log.e("ADBILOGSTOLOS", t.message.toString())
             }
         })
