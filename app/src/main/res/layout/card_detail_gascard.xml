@@ -114,15 +114,31 @@
             android:textSize="20sp"
             tools:text="Fuel types:" />
 
-        <EditText
-            android:id="@+id/evFuelTypes"
-            android:layout_width="165sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            tools:text="FT's"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvFuelTypesSelect"
+                android:layout_width="165sp"
+                android:layout_height="53sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                tools:hint="Fueltypes"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/tvFuelTypesSelect"
+                android:layout_alignBottom="@id/tvFuelTypesSelect"
+                android:src="@drawable/ic_arrow_down"
+                />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout

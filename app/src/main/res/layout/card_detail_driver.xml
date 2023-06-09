@@ -139,6 +139,7 @@
                 android:layout_height="53sp"
                 android:layout_alignParentRight="true"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -149,6 +150,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/tvLicensesSelect"
+                android:layout_alignBottom="@id/tvLicensesSelect"
                 android:src="@drawable/ic_arrow_down"
                 />
         </RelativeLayout>

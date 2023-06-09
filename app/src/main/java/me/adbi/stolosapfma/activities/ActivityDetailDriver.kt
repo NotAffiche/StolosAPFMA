@@ -1,5 +1,6 @@
 package me.adbi.stolosapfma
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -23,8 +24,9 @@ import retrofit2.Response
 
 class ActivityDetailDriver : ComponentActivity() {
 
-    var licensesToSave: String = ""
+    //var licensesToSave: String = ""
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.card_detail_driver)
@@ -95,8 +97,8 @@ class ActivityDetailDriver : ComponentActivity() {
                     }
                 }
                 tvLicensesSelect.text = strb.toString()
-                licensesToSave = strb.toString()
-                Log.i("ADBILOGSTOLOS", licensesToSave)
+                //licensesToSave = strb.toString()
+                //Log.i("ADBILOGSTOLOS", licensesToSave)
                 dialog.dismiss()
             }
 
@@ -144,7 +146,7 @@ class ActivityDetailDriver : ComponentActivity() {
                             }
                         }
                         tvLicensesSelect.text = strb.toString()
-                        licensesToSave = strb.toString()
+                        //licensesToSave = strb.toString()
                         //
                         evAddress.text = Editable.Factory.getInstance().newEditable("")
                         evVehicle.text = Editable.Factory.getInstance().newEditable("")
@@ -163,7 +165,7 @@ class ActivityDetailDriver : ComponentActivity() {
                         //region REGISTER UPDATE
                         btnSave.setOnClickListener(View.OnClickListener {
                             var updatedD = DriverModel(driverId, evFirstName.text.toString(), evLastName.text.toString(), evBirthDate.text.toString(),
-                            evRRN.text.toString(), licensesToSave.split(","), evAddress.text.toString(), evVehicle.text.toString(), evGasCard.text.toString())
+                            evRRN.text.toString(), tvLicensesSelect.text.split(","), evAddress.text.toString(), evVehicle.text.toString(), evGasCard.text.toString())
                             val call: Call<Unit> = api.updateDriverById(updatedD)
                             call.enqueue(object : Callback<Unit> {
                                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
@@ -202,7 +204,7 @@ class ActivityDetailDriver : ComponentActivity() {
                 }
 
                 override fun onFailure(call: Call<DriverModel>, t: Throwable) {
-                    Toast.makeText(this@ActivityDetailDriver, "Error", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ActivityDetailDriver, "Error", Toast.LENGTH_SHORT).show()
                     Log.e("ADBILOGSTOLOS", t.message.toString())
                 }
             })
@@ -217,7 +219,7 @@ class ActivityDetailDriver : ComponentActivity() {
                     evLastName.text.toString(),
                     evBirthDate.text.toString(),
                     evRRN.text.toString(),
-                    licensesToSave.split(","),
+                    tvLicensesSelect.text.split(","),
                     evAddress.text.toString(),
                     evVehicle.text.toString(),
                     evGasCard.text.toString()

@@ -1,5 +1,8 @@
 package me.adbi.stolosapfma
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -13,7 +16,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import me.adbi.stolosapfma.factories.RetrofitFactory
 import me.adbi.stolosapfma.interfaces.ApiService
-import me.adbi.stolosapfma.models.DriverModel
 import me.adbi.stolosapfma.models.GasCardModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +24,7 @@ import retrofit2.Response
 
 class ActivityDetailGasCard : ComponentActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.card_detail_gascard)
@@ -54,7 +57,7 @@ class ActivityDetailGasCard : ComponentActivity() {
         val evCardNumber = findViewById<EditText>(R.id.evCardNumber)
         val evExpiringDate = findViewById<EditText>(R.id.evExpiringDate)
         val evPincode = findViewById<EditText>(R.id.evPincode)
-        val evFuelTypes = findViewById<EditText>(R.id.evFuelTypes)
+        val tvFuelTypesSelect = findViewById<TextView>(R.id.tvFuelTypesSelect)
         val evBlocked = findViewById<EditText>(R.id.evBlocked)
         val evDriver = findViewById<EditText>(R.id.evDriver)
         //endregion
@@ -63,6 +66,48 @@ class ActivityDetailGasCard : ComponentActivity() {
         val btnSave: Button = findViewById(R.id.btnSave)
         val btnDelete = findViewById<Button>(R.id.btnDelete)
         //endregion
+
+        //region licenses select
+        val fueltypes = resources.getStringArray(R.array.fueltypes)
+        var selectedFueltypes = BooleanArray(fueltypes.size) { false }
+        val selection = mutableListOf<Int>()
+
+        tvFuelTypesSelect.setOnClickListener {
+
+            val licenseSelectionClickListener = DialogInterface.OnMultiChoiceClickListener { _, which, isChecked ->
+                if (isChecked) {
+                    selection.add(which)
+                } else {
+                    selection.remove(which)
+                }
+            }
+
+            val positiveButtonClickListener = DialogInterface.OnClickListener { dialog, _ ->
+                val strb = StringBuilder()
+                for (i in 0 until selection.size) {
+                    strb.append(fueltypes[selection[i]])
+                    if (i != selection.size - 1) {
+                        strb.append(",")
+                    }
+                }
+                tvFuelTypesSelect.text = strb.toString()
+                //licensesToSave = strb.toString()
+                //Log.i("ADBILOGSTOLOS", licensesToSave)
+                dialog.dismiss()
+            }
+
+            val negativeButtonClickListener = DialogInterface.OnClickListener { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            val alertBuilder = AlertDialog.Builder(this)
+            alertBuilder.setMultiChoiceItems(fueltypes, selectedFueltypes, licenseSelectionClickListener)
+                .setPositiveButton("OK", positiveButtonClickListener)
+                .setNegativeButton("Cancel", negativeButtonClickListener)
+
+            val alertDialog = alertBuilder.create()
+            alertDialog.show()
+        }
 
         val gasCardNum: String? = intent.getStringExtra("gasCardNum")
 
@@ -79,7 +124,25 @@ class ActivityDetailGasCard : ComponentActivity() {
                         tvCardNumberVal.text = gc.cardNumber
                         evExpiringDate.text = Editable.Factory.getInstance().newEditable(gc.expiringDate.split("T")[0])
                         evPincode.text = Editable.Factory.getInstance().newEditable("")
-                        evFuelTypes.text = Editable.Factory.getInstance().newEditable(gc.fuelTypes.joinToString(separator = ","))
+                        //tvFuelTypesSelect.text = Editable.Factory.getInstance().newEditable(gc.fuelTypes.joinToString(separator = ","))
+                        //
+                        for (ft in gc.fuelTypes) {
+                            val index = fueltypes.indexOf(ft)
+                            selection.add(index)
+                            if (index != -1) {
+                                selectedFueltypes[index] = true
+                            }
+                        }
+                        val strb = StringBuilder()
+                        for (i in 0 until gc.fuelTypes.size) {
+                            strb.append(gc.fuelTypes[i])
+                            if (i != gc.fuelTypes.size - 1) {
+                                strb.append(",")
+                            }
+                        }
+                        tvFuelTypesSelect.text = strb.toString()
+                        //licensesToSave = strb.toString()
+                        //
                         evBlocked.text = Editable.Factory.getInstance().newEditable(gc.blocked.toString())
                         evDriver.text = Editable.Factory.getInstance().newEditable("")
                         if (gc.pincode!=null) {
@@ -104,7 +167,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                                 gasCardNum,
                                 evExpiringDate.text.toString(),
                                 pin,
-                                evFuelTypes.text.toString().split(","),
+                                tvFuelTypesSelect.text.toString().split(","),
                                 evBlocked.text.toString().toBoolean(),
                                 driverId)
                             val call: Call<Unit> = api.updateGasCardByCardNum(updatedGC)
@@ -156,10 +219,6 @@ class ActivityDetailGasCard : ComponentActivity() {
             //region REGISTER ADD
 
             btnSave.setOnClickListener{
-                var fts = ArrayList<String>()
-                for (ft in evFuelTypes.text.toString().split(",")) {
-                    fts.add("$ft")
-                }
                 var pin: Int? = null
                 var driverId: Int? = null
                 if (!evPincode.text.toString().equals("")) {
@@ -172,7 +231,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                     evCardNumber.text.toString(),
                     evExpiringDate.text.toString(),
                     pin,
-                    fts,
+                    tvFuelTypesSelect.text.split(","),
                     evBlocked.text.toString().toBoolean(),
                     driverId)
 
