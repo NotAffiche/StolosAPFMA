@@ -9,6 +9,7 @@ import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -58,7 +59,7 @@ class ActivityDetailGasCard : ComponentActivity() {
         val evExpiringDate = findViewById<EditText>(R.id.evExpiringDate)
         val evPincode = findViewById<EditText>(R.id.evPincode)
         val tvFuelTypesSelect = findViewById<TextView>(R.id.tvFuelTypesSelect)
-        val evBlocked = findViewById<EditText>(R.id.evBlocked)
+        val cbBlocked = findViewById<CheckBox>(R.id.cbBlocked)
         val evDriver = findViewById<EditText>(R.id.evDriver)
         //endregion
 
@@ -141,9 +142,8 @@ class ActivityDetailGasCard : ComponentActivity() {
                             }
                         }
                         tvFuelTypesSelect.text = strb.toString()
-                        //licensesToSave = strb.toString()
                         //
-                        evBlocked.text = Editable.Factory.getInstance().newEditable(gc.blocked.toString())
+                        cbBlocked.isChecked = gc.blocked
                         evDriver.text = Editable.Factory.getInstance().newEditable("")
                         if (gc.pincode!=null) {
                             evPincode.text = Editable.Factory.getInstance().newEditable(gc.pincode.toString())
@@ -168,7 +168,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                                 evExpiringDate.text.toString(),
                                 pin,
                                 tvFuelTypesSelect.text.toString().split(","),
-                                evBlocked.text.toString().toBoolean(),
+                                cbBlocked.isChecked,
                                 driverId)
                             val call: Call<Unit> = api.updateGasCardByCardNum(updatedGC)
                             call.enqueue(object : Callback<Unit> {
@@ -232,7 +232,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                     evExpiringDate.text.toString(),
                     pin,
                     tvFuelTypesSelect.text.split(","),
-                    evBlocked.text.toString().toBoolean(),
+                    cbBlocked.isChecked,
                     driverId)
 
                 Log.i("ADBILOGSTOLOS", createdGC.toString())

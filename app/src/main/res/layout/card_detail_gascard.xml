@@ -155,15 +155,13 @@
             android:textSize="20sp"
             tools:text="Blocked:" />
 
-        <EditText
-            android:id="@+id/evBlocked"
-            android:layout_width="165sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            tools:text="Blckd"/>
+        <CheckBox
+            android:id="@+id/cbBlocked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_toRightOf="@id/tvBlocked"
+            android:layout_marginLeft="175dp"/>
     </RelativeLayout>
 
     <RelativeLayout
