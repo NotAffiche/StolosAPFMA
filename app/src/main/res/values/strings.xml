@@ -5,6 +5,8 @@
     <string name="gas_cards">Gas Cards</string>
     <string name="add">ADD</string>
     <string name="allphi_logo">AllPhi Logo</string>
+    <string name="save">SAVE</string>
+    <string name="delete">DELETE</string>
 
     <string-array name="licenses">
         <item>AM</item>

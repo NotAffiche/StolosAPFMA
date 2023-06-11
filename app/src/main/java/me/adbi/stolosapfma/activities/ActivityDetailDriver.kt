@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
@@ -100,6 +101,7 @@ class ActivityDetailDriver : ComponentActivity() {
         }
 
         // Format RRN EditText
+        evRRN.inputType = InputType.TYPE_CLASS_NUMBER
         evRRN.addTextChangedListener(object : TextWatcher {
             private var isFormatting: Boolean = false
             private val rrnPattern: String = "##.##.##-###.##"
