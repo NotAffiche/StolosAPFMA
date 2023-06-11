@@ -81,11 +81,6 @@ class ActivityDetailVehicle : ComponentActivity() {
         spVehicleType.adapter = ArrayAdapter(this@ActivityDetailVehicle, android.R.layout.simple_spinner_item, vehicleTypes)
 
         //region FETCH DRIVERS FOR COMBOBOX (w/out gc)
-        var driversWithoutGC: ArrayList<DriverModel> = ArrayList()
-
-        val emptyDriver = DriverModel(null, "", "", "", "", listOf(), "", "", "")
-        driversWithoutGC.add(emptyDriver)
-
         val spDriver = findViewById<Spinner>(R.id.spDriver)
         //endregion
 
@@ -186,6 +181,7 @@ class ActivityDetailVehicle : ComponentActivity() {
             btnDelete.setVisibility(View.GONE)
             tvVinVal.setVisibility(View.GONE)
             evVin.setVisibility(View.VISIBLE)
+            setupSpinner(api, null)
 
             //region REGISTER ADD
 

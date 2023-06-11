@@ -202,15 +202,6 @@ class ActivityDetailDriver : ComponentActivity() {
         //endregion
 
         //region FETCH VEHICLES & GASCARDS FOR COMBOBOX (values w/out Drivers)
-        var vehiclesWithoutDrivers: ArrayList<VehicleModel> = ArrayList()
-        var gasCardsWithoutDrivers: ArrayList<GasCardModel> = ArrayList()
-
-        val emptyVehicle = VehicleModel(null, "", "", "", "", "", null, null)
-        vehiclesWithoutDrivers.add(emptyVehicle)
-
-        val emptyGasCard = GasCardModel(null, "", null, listOf(), false, null)
-        gasCardsWithoutDrivers.add(emptyGasCard)
-
         val spVeh = findViewById<Spinner>(R.id.spVeh)
         val spGC = findViewById<Spinner>(R.id.spGC)
         //endregion
@@ -389,7 +380,7 @@ class ActivityDetailDriver : ComponentActivity() {
                     Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                     Log.e("ADBILOGSTOLOS", "Error getting vehicles without drivers.")
                 }
-                handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC)
+                handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC, d)
             }
 
             override fun onFailure(call: Call<ArrayList<VehicleModel>>, t: Throwable) {
@@ -415,7 +406,7 @@ class ActivityDetailDriver : ComponentActivity() {
                     Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
                     Log.e("ADBILOGSTOLOS", "Error getting gascards without drivers.")
                 }
-                handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC)
+                handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC, d)
             }
 
             override fun onFailure(call: Call<ArrayList<GasCardModel>>, t: Throwable) {
@@ -427,7 +418,7 @@ class ActivityDetailDriver : ComponentActivity() {
         //endregion
     }
 
-    private fun setSpinnersAdapters(vehiclesWithoutDrivers: ArrayList<VehicleModel>, spVeh: Spinner, gasCardsWithoutDrivers: ArrayList<GasCardModel>, spGC:Spinner) {
+    private fun setSpinnersAdapters(vehiclesWithoutDrivers: ArrayList<VehicleModel>, spVeh: Spinner, gasCardsWithoutDrivers: ArrayList<GasCardModel>, spGC:Spinner, d: DriverModel?) {
         vehicleAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, vehiclesWithoutDrivers)
         vehicleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spVeh.adapter = vehicleAdapter
@@ -435,11 +426,32 @@ class ActivityDetailDriver : ComponentActivity() {
         gasCardAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, gasCardsWithoutDrivers)
         gasCardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spGC.adapter = gasCardAdapter
+
+        //TODO: fix this mess
+        /*
+        if (d != null) {
+            if (d.gasCardNum != null) {
+                spGC.setSelection(1, true)
+            } else {
+                spGC.setSelection(0, true)
+            }
+            if (d.vehicleVin != null) {
+                spVeh.setSelection(1, true)
+            } else {
+                spVeh.setSelection(0, true)
+            }
+            Log.i("ADBILOGSTOLOS", "${d.natRegNum.toString()} ${d.gasCardNum.toString()}")
+            Log.i("ADBILOGSTOLOS", "${d.natRegNum.toString()} ${d.vehicleVin.toString()}")
+        } else {
+            spGC.setSelection(0, true)
+            spVeh.setSelection(0, true)
+        }
+        */
     }
 
-    private fun handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers: ArrayList<VehicleModel>, spVeh: Spinner, gasCardsWithoutDrivers: ArrayList<GasCardModel>, spGC:Spinner) {
+    private fun handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers: ArrayList<VehicleModel>, spVeh: Spinner, gasCardsWithoutDrivers: ArrayList<GasCardModel>, spGC:Spinner, d: DriverModel?) {
         if (vehiclesWithoutDrivers.isNotEmpty() && gasCardsWithoutDrivers.isNotEmpty()) {
-            setSpinnersAdapters(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC)
+            setSpinnersAdapters(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC, d)
         }
     }
 }

@@ -148,11 +148,6 @@ class ActivityDetailGasCard : ComponentActivity() {
         //endregion
 
         //region FETCH DRIVERS FOR COMBOBOX (w/out gc)
-        var driversWithoutGC: ArrayList<DriverModel> = ArrayList()
-
-        val emptyDriver = DriverModel(null, "", "", "", "", listOf(), "", "", "")
-        driversWithoutGC.add(emptyDriver)
-
         val spDriver = findViewById<Spinner>(R.id.spDriver)
         //endregion
 
