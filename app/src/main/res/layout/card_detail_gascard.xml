@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CFACCE"
+    android:background="#F5F5F5"
     android:layout_margin="15dp"
     android:orientation="vertical"
     android:padding="15dp">
@@ -11,202 +11,234 @@
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
-        android:layout_height="150sp"
+        android:layout_height="125sp"
         android:layout_margin="15sp"
         android:src="@drawable/logo" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvCardNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Card Number:" />
-
-        <TextView
-            android:id="@+id/tvCardNumberVal"
-            android:layout_width="180sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:gravity="center"
-            tools:text="Cardnum" />
-        <EditText
-            android:id="@+id/evCardNumber"
-            android:layout_width="180sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Cardnum" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvExpiringDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Expiring Date:" />
-
-        <TextView
-            android:id="@+id/tvExpiringDateDisplayValue"
-            android:layout_width="180sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Exp dat"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvPincode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Pincode:" />
-
-        <EditText
-            android:id="@+id/evPincode"
-            android:layout_width="180sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Pin"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvFuelTypes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Fuel types:" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_object_edit"
+        android:padding="8dp">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvFuelTypesSelect"
+                android:id="@+id/tvCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:text="Card Number:" />
+
+            <TextView
+                android:id="@+id/tvCardNumberVal"
+                android:layout_width="180sp"
+                android:layout_height="53sp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:gravity="center"
+                tools:text="Cardnum" />
+            <EditText
+                android:id="@+id/evCardNumber"
                 android:layout_width="180sp"
                 android:layout_height="53sp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:textAlignment="center"
-                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                tools:hint="Fueltypes"/>
+                android:hint="11223344556677889900" />
+        </RelativeLayout>
 
-            <ImageView
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvExpiringDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:text="Expiring Date:" />
+
+            <TextView
+                android:id="@+id/tvExpiringDateDisplayValue"
+                android:layout_width="180sp"
+                android:layout_height="53sp"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:hint="2050-12-31"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvPincode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:text="Pincode:" />
+
+            <EditText
+                android:id="@+id/evPincode"
+                android:layout_width="180sp"
+                android:layout_height="53sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:hint="1234"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvFuelTypes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:text="Fuel types:" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvFuelTypesSelect"
+                    android:layout_width="180sp"
+                    android:layout_height="53sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:hint="Fueltypes"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@id/tvFuelTypesSelect"
+                    android:layout_alignBottom="@id/tvFuelTypesSelect"
+                    android:src="@drawable/ic_arrow_down"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvBlocked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:text="Blocked:" />
+
+            <CheckBox
+                android:id="@+id/cbBlocked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignTop="@id/tvFuelTypesSelect"
-                android:layout_alignBottom="@id/tvFuelTypesSelect"
-                android:src="@drawable/ic_arrow_down"
+                android:minHeight="48dp"
                 />
         </RelativeLayout>
-    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvBlocked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Blocked:" />
+            <TextView
+                android:id="@+id/tvDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:text="Driver Id:" />
 
-        <CheckBox
-            android:id="@+id/cbBlocked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            />
+            <EditText
+                android:id="@+id/evDriver"
+                android:layout_width="180sp"
+                android:layout_height="53sp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:hint="420"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvDriver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Driver Id:" />
-
-        <EditText
-            android:id="@+id/evDriver"
-            android:layout_width="180sp"
-            android:layout_height="53sp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Drv id"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_gravity="bottom">
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="150sp"
-            android:layout_height="55sp"
-            android:layout_alignParentLeft="true"
-            android:text="SAVE" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/allphi_blue"
+            android:drawableStart="@drawable/ic_save"
+            android:drawableTint="@color/white"
+            android:drawablePadding="8dp"
+            android:background="@drawable/rounded_button"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/save"
+            android:textColor="@android:color/white"
+            android:layout_alignParentStart="true"/>
 
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="150sp"
-            android:layout_height="55sp"
-            android:layout_alignParentRight="true"
-            android:text="DELETE" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/allphi_blue"
+            android:drawableStart="@drawable/ic_delete"
+            android:drawableTint="@color/white"
+            android:drawablePadding="8dp"
+            android:background="@drawable/rounded_button"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/delete"
+            android:textColor="@android:color/white"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
 
