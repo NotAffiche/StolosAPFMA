@@ -3,6 +3,8 @@ package me.adbi.stolosapfma
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -50,6 +52,12 @@ class ActivityDrivers : ComponentActivity() {
                     rv.apply {
                         layoutManager = LinearLayoutManager(this@ActivityDrivers)
                         adapter = DriverAdapter(context = context, response.body()!!)
+                    }
+                } else {
+                    rv.apply {
+                        layoutManager = LinearLayoutManager(this@ActivityDrivers)
+                        adapter = null
+                        View.inflate(context, R.layout.item_loading, this)
                     }
                 }
             }

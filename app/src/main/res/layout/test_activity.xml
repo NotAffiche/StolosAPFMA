@@ -15,20 +15,19 @@
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/allphi_logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvVehicles"
+        android:id="@+id/rvDrivers"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddVehicle"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddDriver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
 
     <Button
-        android:id="@+id/btnAddVehicle"
+        android:id="@+id/btnAddDriver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -36,14 +35,14 @@
         android:drawableStart="@drawable/ic_add"
         android:drawableTint="@color/white"
         android:drawablePadding="8dp"
-        android:background="@drawable/rounded_button"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
         android:paddingEnd="24dp"
         android:paddingBottom="8dp"
-        android:text="@string/add"
+        android:text="ADD"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

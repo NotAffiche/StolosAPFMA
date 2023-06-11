@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">StolosAPFMA</string>
+    <string name="drivers">Drivers</string>
+    <string name="vehicles">Vehicles</string>
+    <string name="gas_cards">Gas Cards</string>
+    <string name="add">ADD</string>
+    <string name="allphi_logo">AllPhi Logo</string>
 
     <string-array name="licenses">
         <item>AM</item>
