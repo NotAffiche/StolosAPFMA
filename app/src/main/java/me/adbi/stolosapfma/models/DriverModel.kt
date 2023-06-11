@@ -12,3 +12,13 @@ data class DriverModel (
     val vehicleVin: String? = null,
     val gasCardNum: String? = null
 )
+
+{
+    override fun toString(): String {
+        return if (driverID == null && firstName.isEmpty() && lastName.isEmpty()) {
+            "Unset"
+        } else {
+            "$firstName $lastName"
+        }
+    }
+}

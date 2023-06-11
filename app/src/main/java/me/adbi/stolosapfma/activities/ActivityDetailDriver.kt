@@ -11,8 +11,10 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -20,6 +22,8 @@ import androidx.activity.OnBackPressedCallback
 import me.adbi.stolosapfma.factories.RetrofitFactory
 import me.adbi.stolosapfma.interfaces.ApiService
 import me.adbi.stolosapfma.models.DriverModel
+import me.adbi.stolosapfma.models.GasCardModel
+import me.adbi.stolosapfma.models.VehicleModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,7 +34,8 @@ import java.util.Locale
 
 class ActivityDetailDriver : ComponentActivity() {
 
-    //var licensesToSave: String = ""
+    private lateinit var vehicleAdapter: ArrayAdapter<VehicleModel>
+    private lateinit var gasCardAdapter: ArrayAdapter<GasCardModel>
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,10 +76,9 @@ class ActivityDetailDriver : ComponentActivity() {
         val evRRN = findViewById<EditText>(R.id.evRRN)
         val tvLicensesSelect = findViewById<TextView>(R.id.tvLicensesSelect)
         val evAddress = findViewById<EditText>(R.id.evAddress)
-        val evVehicle = findViewById<EditText>(R.id.evVehicle)
-        val evGasCard = findViewById<EditText>(R.id.evGasCard)
         //endregion
 
+        //region DATEPICKER
         //datepicker
         var year: Int = 1970
         var month: Int = 1
@@ -99,7 +103,9 @@ class ActivityDetailDriver : ComponentActivity() {
 
             datePickerDialog.show()
         }
+        //endregion
 
+        //region RRN FORMAT
         // Format RRN EditText
         evRRN.inputType = InputType.TYPE_CLASS_NUMBER
         evRRN.addTextChangedListener(object : TextWatcher {
@@ -146,16 +152,17 @@ class ActivityDetailDriver : ComponentActivity() {
                 isFormatting = false
             }
         })
+        //endregion
 
         //region BUTTONS
         val btnSave: Button = findViewById(R.id.btnSave)
         val btnDelete = findViewById<Button>(R.id.btnDelete)
         //endregion
 
+        //region LICENSES MULTISELECT
         val licenses = resources.getStringArray(R.array.licenses)
         var selectedLicenses = BooleanArray(licenses.size) { false }
         val selection = mutableListOf<Int>()
-        //region licenses select
         tvLicensesSelect.setOnClickListener {
 
             val licenseSelectionClickListener = DialogInterface.OnMultiChoiceClickListener { _, which, isChecked ->
@@ -194,6 +201,20 @@ class ActivityDetailDriver : ComponentActivity() {
         }
         //endregion
 
+        //region FETCH VEHICLES & GASCARDS FOR COMBOBOX (values w/out Drivers)
+        var vehiclesWithoutDrivers: ArrayList<VehicleModel> = ArrayList()
+        var gasCardsWithoutDrivers: ArrayList<GasCardModel> = ArrayList()
+
+        val emptyVehicle = VehicleModel(null, "", "", "", "", "", null, null)
+        vehiclesWithoutDrivers.add(emptyVehicle)
+
+        val emptyGasCard = GasCardModel(null, "", null, listOf(), false, null)
+        gasCardsWithoutDrivers.add(emptyGasCard)
+
+        val spVeh = findViewById<Spinner>(R.id.spVeh)
+        val spGC = findViewById<Spinner>(R.id.spGC)
+        //endregion
+
         val driverId: Int = intent.getIntExtra("driverID", 0)
 
         if (driverId!=0) {
@@ -204,6 +225,7 @@ class ActivityDetailDriver : ComponentActivity() {
                         Log.i("ADBILOGSTOLOS", response.body().toString())
                         //region FILL EDIT TEXTS
                         val d: DriverModel = response.body()!!
+                        setupSpinners(api, d)
                         Toast.makeText(this@ActivityDetailDriver, "DriverID: ${d.driverID}", Toast.LENGTH_SHORT).show()
                         evFirstName.text = Editable.Factory.getInstance().newEditable(d.firstName)
                         evLastName.text = Editable.Factory.getInstance().newEditable(d.lastName)
@@ -233,23 +255,20 @@ class ActivityDetailDriver : ComponentActivity() {
                         //licensesToSave = strb.toString()
                         //
                         evAddress.text = Editable.Factory.getInstance().newEditable("")
-                        evVehicle.text = Editable.Factory.getInstance().newEditable("")
                         evAddress.text = Editable.Factory.getInstance().newEditable("")
                         if (d.address!=null) {
                             evAddress.text = Editable.Factory.getInstance().newEditable(d.address)
-                        }
-                        if (d.vehicleVin!=null) {
-                            evVehicle.text = Editable.Factory.getInstance().newEditable(d.vehicleVin)
-                        }
-                        if (d.gasCardNum!=null) {
-                            evGasCard.text = Editable.Factory.getInstance().newEditable(d.gasCardNum)
                         }
                         //endregion
 
                         //region REGISTER UPDATE
                         btnSave.setOnClickListener(View.OnClickListener {
+                            val selectedVehicle = spVeh.selectedItem as VehicleModel
+                            val selectedGasCard = spGC.selectedItem as GasCardModel
+                            Log.i("ADBILOGSTOLOS", selectedVehicle.vin.toString())
+                            Log.i("ADBILOGSTOLOS", selectedGasCard.cardNumber.toString())
                             var updatedD = DriverModel(driverId, evFirstName.text.toString(), evLastName.text.toString(), tvBirthDateDisplayValue.text.toString(),
-                            evRRN.text.toString(), tvLicensesSelect.text.split(","), evAddress.text.toString(), evVehicle.text.toString(), evGasCard.text.toString())
+                            evRRN.text.toString(), tvLicensesSelect.text.split(","), evAddress.text.toString(), selectedVehicle.vin.toString(), selectedGasCard.cardNumber.toString())
                             val call: Call<Unit> = api.updateDriverById(updatedD)
                             call.enqueue(object : Callback<Unit> {
                                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
@@ -294,9 +313,12 @@ class ActivityDetailDriver : ComponentActivity() {
             })
         } else {// code for creating new driver
             btnDelete.setVisibility(View.GONE)
+            setupSpinners(api, null)
             //region REGISTER ADD
 
             btnSave.setOnClickListener{
+                val selectedVehicle = spVeh.selectedItem as VehicleModel
+                val selectedGasCard = spGC.selectedItem as GasCardModel
                 var cDriver = DriverModel(
                 null,
                     evFirstName.text.toString(),
@@ -305,14 +327,24 @@ class ActivityDetailDriver : ComponentActivity() {
                     evRRN.text.toString(),
                     tvLicensesSelect.text.split(","),
                     evAddress.text.toString(),
-                    evVehicle.text.toString(),
-                    evGasCard.text.toString()
+                    selectedVehicle.vin,
+                    selectedGasCard.cardNumber
                 )
-
+                Log.i("ADBILOGSTOLOS", cDriver.address.toString() ?: "no address")
+                Log.i("ADBILOGSTOLOS", selectedVehicle.vin.toString())
+                Log.i("ADBILOGSTOLOS", selectedGasCard.cardNumber.toString())
                 Log.i("ADBILOGSTOLOS", cDriver.toString())
+                val c = cDriver
+                Log.i("ADBILOGSTOLOS", "${c.firstName} ${c.lastName} ${c.birthDate.toString()} ${c.natRegNum.toString()} ${c.licenses.toString()} ${c.address} ${c.vehicleVin} ${c.gasCardNum}")
+
                 api.addDriver(cDriver).enqueue(object : Callback<Unit> {
                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                        startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java))
+                        if (response.isSuccessful) {
+                            startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java))
+                        } else {
+                            Toast.makeText(this@ActivityDetailDriver, "Error", Toast.LENGTH_SHORT).show()
+                            Log.e("ADBILOGSTOLOS", response.body().toString())
+                        }
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -322,6 +354,92 @@ class ActivityDetailDriver : ComponentActivity() {
                 })
             }
             //endregion
+        }
+    }
+
+    private fun setupSpinners(api: ApiService, d: DriverModel?) {
+        //region GET VEHICLES & GASCARDS FOR COMBOBOX (values w/out Drivers)
+        var vehiclesWithoutDrivers: ArrayList<VehicleModel> = ArrayList()
+        var gasCardsWithoutDrivers: ArrayList<GasCardModel> = ArrayList()
+
+        val emptyVehicle = VehicleModel(null, "", "", "", "", "", null, null)
+        vehiclesWithoutDrivers.add(emptyVehicle)
+
+        val emptyGasCard = GasCardModel(null, "", null, listOf(), false, null)
+        gasCardsWithoutDrivers.add(emptyGasCard)
+
+        val spVeh = findViewById<Spinner>(R.id.spVeh)
+        val spGC = findViewById<Spinner>(R.id.spGC)
+
+        api.getVehicles().enqueue(object : Callback<ArrayList<VehicleModel>> {
+            override fun onResponse(call: Call<ArrayList<VehicleModel>>, response: Response<ArrayList<VehicleModel>>) {
+                if (response.isSuccessful) {
+                    val allVehicles = response.body()
+                    if (allVehicles != null) {
+                        if (d != null && d.driverID != 0) {
+                            val filteredVehicles = allVehicles.filter { it.driverId == d.driverID }
+                            vehiclesWithoutDrivers.addAll(filteredVehicles)
+                        }
+                        vehiclesWithoutDrivers.addAll(allVehicles.filter { it.driverId == null })
+                        Log.i("ADBILOGSTOLOS", vehiclesWithoutDrivers.toString())
+                    } else {
+                        Log.e("ADBILOGSTOLOS", "Empty vehicle list.")
+                    }
+                } else {
+                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
+                    Log.e("ADBILOGSTOLOS", "Error getting vehicles without drivers.")
+                }
+                handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC)
+            }
+
+            override fun onFailure(call: Call<ArrayList<VehicleModel>>, t: Throwable) {
+                Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
+                Log.e("ADBILOGSTOLOS", "Connection error getting vehicles without drivers.")
+            }
+        })
+        api.getGasCards().enqueue(object : Callback<ArrayList<GasCardModel>> {
+            override fun onResponse(call: Call<ArrayList<GasCardModel>>, response: Response<ArrayList<GasCardModel>>) {
+                if (response.isSuccessful) {
+                    val allGascards = response.body()
+                    if (allGascards != null) {
+                        if (d != null && d.driverID != 0) {
+                            val filteredGasCards = allGascards.filter { it.driverId == d.driverID }
+                            gasCardsWithoutDrivers.addAll(filteredGasCards)
+                        }
+                        gasCardsWithoutDrivers.addAll(allGascards.filter { it.driverId == null })
+                        Log.i("ADBILOGSTOLOS", gasCardsWithoutDrivers.toString())
+                    } else {
+                        Log.e("ADBILOGSTOLOS", "Empty vehicle list.")
+                    }
+                } else {
+                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
+                    Log.e("ADBILOGSTOLOS", "Error getting gascards without drivers.")
+                }
+                handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC)
+            }
+
+            override fun onFailure(call: Call<ArrayList<GasCardModel>>, t: Throwable) {
+                Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
+                Log.e("ADBILOGSTOLOS", "Connection error getting gascards without drivers.")
+            }
+
+        })
+        //endregion
+    }
+
+    private fun setSpinnersAdapters(vehiclesWithoutDrivers: ArrayList<VehicleModel>, spVeh: Spinner, gasCardsWithoutDrivers: ArrayList<GasCardModel>, spGC:Spinner) {
+        vehicleAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, vehiclesWithoutDrivers)
+        vehicleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spVeh.adapter = vehicleAdapter
+
+        gasCardAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, gasCardsWithoutDrivers)
+        gasCardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spGC.adapter = gasCardAdapter
+    }
+
+    private fun handleAPIResponseAllWithoutDrivers(vehiclesWithoutDrivers: ArrayList<VehicleModel>, spVeh: Spinner, gasCardsWithoutDrivers: ArrayList<GasCardModel>, spGC:Spinner) {
+        if (vehiclesWithoutDrivers.isNotEmpty() && gasCardsWithoutDrivers.isNotEmpty()) {
+            setSpinnersAdapters(vehiclesWithoutDrivers, spVeh, gasCardsWithoutDrivers, spGC)
         }
     }
 }

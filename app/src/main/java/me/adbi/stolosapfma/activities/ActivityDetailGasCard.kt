@@ -9,16 +9,20 @@ import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import me.adbi.stolosapfma.factories.RetrofitFactory
 import me.adbi.stolosapfma.interfaces.ApiService
+import me.adbi.stolosapfma.models.DriverModel
 import me.adbi.stolosapfma.models.GasCardModel
+import me.adbi.stolosapfma.models.VehicleModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +32,8 @@ import java.util.Locale
 
 
 class ActivityDetailGasCard : ComponentActivity() {
+
+    private lateinit var driverAdapter: ArrayAdapter<DriverModel>
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +70,6 @@ class ActivityDetailGasCard : ComponentActivity() {
         val evPincode = findViewById<EditText>(R.id.evPincode)
         val tvFuelTypesSelect = findViewById<TextView>(R.id.tvFuelTypesSelect)
         val cbBlocked = findViewById<CheckBox>(R.id.cbBlocked)
-        val evDriver = findViewById<EditText>(R.id.evDriver)
         //endregion
 
         //region BUTTONS
@@ -72,6 +77,7 @@ class ActivityDetailGasCard : ComponentActivity() {
         val btnDelete = findViewById<Button>(R.id.btnDelete)
         //endregion
 
+        //region DATEPICKER
         //datepicker
         var year: Int = 1970
         var month: Int = 1
@@ -96,8 +102,9 @@ class ActivityDetailGasCard : ComponentActivity() {
 
             datePickerDialog.show()
         }
+        //endregion
 
-        //region licenses select
+        //region MULTISELECT FUELTYPES
         val fueltypes = resources.getStringArray(R.array.fueltypes)
         var selectedFueltypes = BooleanArray(fueltypes.size) { false }
         val selection = mutableListOf<Int>()
@@ -138,6 +145,16 @@ class ActivityDetailGasCard : ComponentActivity() {
             val alertDialog = alertBuilder.create()
             alertDialog.show()
         }
+        //endregion
+
+        //region FETCH DRIVERS FOR COMBOBOX (w/out gc)
+        var driversWithoutGC: ArrayList<DriverModel> = ArrayList()
+
+        val emptyDriver = DriverModel(null, "", "", "", "", listOf(), "", "", "")
+        driversWithoutGC.add(emptyDriver)
+
+        val spDriver = findViewById<Spinner>(R.id.spDriver)
+        //endregion
 
         val gasCardNum: String? = intent.getStringExtra("gasCardNum")
 
@@ -151,6 +168,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                         Log.i("ADBILOGSTOLOS", response.body().toString())
                         //region FILL EDIT TEXTS
                         val gc: GasCardModel = response.body()!!
+                        setupSpinner(api, gc)
                         tvCardNumberVal.text = gc.cardNumber
                         tvExpiringDateDisplayValue.text = Editable.Factory.getInstance().newEditable(gc.expiringDate.split("T")[0])
                         Log.i("ADBILOGSTOLOS", tvExpiringDateDisplayValue.text.toString())
@@ -178,12 +196,8 @@ class ActivityDetailGasCard : ComponentActivity() {
                         tvFuelTypesSelect.text = strb.toString()
                         //
                         cbBlocked.isChecked = gc.blocked
-                        evDriver.text = Editable.Factory.getInstance().newEditable("")
                         if (gc.pincode!=null) {
                             evPincode.text = Editable.Factory.getInstance().newEditable(gc.pincode.toString())
-                        }
-                        if (gc.driverId!=null) {
-                            evDriver.text = Editable.Factory.getInstance().newEditable(gc.driverId.toString())
                         }
                         //endregion
 
@@ -194,9 +208,8 @@ class ActivityDetailGasCard : ComponentActivity() {
                             if (!evPincode.text.toString().equals("")) {
                                 pin = evPincode.text.toString().toInt()
                             }
-                            if (!evDriver.text.toString().equals("")) {
-                                driverId = evDriver.text.toString().toInt()
-                            }
+                            val selectedDriver = spDriver.selectedItem as DriverModel
+                            driverId = selectedDriver.driverID
                             var updatedGC = GasCardModel(
                                 gasCardNum,
                                 tvExpiringDateDisplayValue.text.toString(),
@@ -250,6 +263,7 @@ class ActivityDetailGasCard : ComponentActivity() {
             btnDelete.setVisibility(View.GONE)
             tvCardNumberVal.setVisibility(View.GONE)
             evCardNumber.setVisibility(View.VISIBLE)
+            setupSpinner(api, null)
             //region REGISTER ADD
 
             btnSave.setOnClickListener{
@@ -258,9 +272,8 @@ class ActivityDetailGasCard : ComponentActivity() {
                 if (!evPincode.text.toString().equals("")) {
                     pin = evPincode.text.toString().toInt()
                 }
-                if (!evDriver.text.toString().equals("")) {
-                    driverId = evDriver.text.toString().toInt()
-                }
+                val selectedDriver = spDriver.selectedItem as DriverModel
+                driverId = selectedDriver.driverID
                 var createdGC = GasCardModel(
                     evCardNumber.text.toString(),
                     tvExpiringDateDisplayValue.text.toString(),
@@ -282,6 +295,65 @@ class ActivityDetailGasCard : ComponentActivity() {
                 })
             }
             //endregion
+        }
+    }
+    private fun setupSpinner(api: ApiService, gc: GasCardModel?) {
+        //region GET VEHICLES & GASCARDS FOR COMBOBOX (values w/out Drivers)
+        var driversWithoutGC: ArrayList<DriverModel> = ArrayList()
+
+        val emptyDriver = DriverModel(null, "", "", "", "", listOf(), "", "", "")
+        driversWithoutGC.add(emptyDriver)
+
+        val spDriver = findViewById<Spinner>(R.id.spDriver)
+
+        api.getDrivers().enqueue(object : Callback<ArrayList<DriverModel>> {
+            override fun onResponse(call: Call<ArrayList<DriverModel>>, response: Response<ArrayList<DriverModel>>) {
+                if (response.isSuccessful) {
+                    val allDrivers = response.body()
+                    if (allDrivers != null) {
+                        if (gc != null) {
+                            val filteredDrivers = allDrivers.filter { it.gasCardNum == gc.cardNumber }
+                            driversWithoutGC.addAll(filteredDrivers)
+                        }
+                        driversWithoutGC.addAll(allDrivers.filter { it.gasCardNum == null })
+                        Log.i("ADBILOGSTOLOS", driversWithoutGC.toString())
+                    } else {
+                        Log.e("ADBILOGSTOLOS", "Empty driver list.")
+                    }
+                } else {
+                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
+                    Log.e("ADBILOGSTOLOS", "Error getting drivers without gascards.")
+                }
+                handleAPIResponseAllWithoutGasCard(driversWithoutGC, spDriver, gc)
+            }
+
+            override fun onFailure(call: Call<ArrayList<DriverModel>>, t: Throwable) {
+                Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
+                Log.e("ADBILOGSTOLOS", "Connection error getting drivers without gascards.")
+            }
+        })
+        //endregion
+    }
+
+    private fun setSpinnerAdapter(driversWithoutGascards: ArrayList<DriverModel>, spDriver: Spinner, gc: GasCardModel?) {
+        driverAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, driversWithoutGascards)
+        driverAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spDriver.adapter = driverAdapter
+        if (gc != null) {
+            if (gc.driverId != null) {
+                spDriver.setSelection(1, true)
+            } else {
+                spDriver.setSelection(0, true)
+            }
+            Log.i("ADBILOGSTOLOS", "${gc.cardNumber.toString()} ${gc.driverId.toString()}")
+        } else {
+            spDriver.setSelection(0, true)
+        }
+    }
+
+    private fun handleAPIResponseAllWithoutGasCard(gascardsWithoutDrivers: ArrayList<DriverModel>, spDriver: Spinner, gc: GasCardModel?) {
+        if (gascardsWithoutDrivers.isNotEmpty()) {
+            setSpinnerAdapter(gascardsWithoutDrivers, spDriver, gc)
         }
     }
 }

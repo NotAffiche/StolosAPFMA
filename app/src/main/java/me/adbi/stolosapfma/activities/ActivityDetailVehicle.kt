@@ -15,6 +15,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import me.adbi.stolosapfma.factories.RetrofitFactory
 import me.adbi.stolosapfma.interfaces.ApiService
+import me.adbi.stolosapfma.models.DriverModel
+import me.adbi.stolosapfma.models.GasCardModel
 import me.adbi.stolosapfma.models.VehicleModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +24,8 @@ import retrofit2.Response
 
 
 class ActivityDetailVehicle : ComponentActivity() {
+
+    private lateinit var driverAdapter: ArrayAdapter<DriverModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +67,6 @@ class ActivityDetailVehicle : ComponentActivity() {
         val spVehicleType = findViewById<Spinner>(R.id.spVehicleTypes)
         val evColor = findViewById<EditText>(R.id.evColor)
         val evDoors = findViewById<EditText>(R.id.evDoors)
-        val evDriver = findViewById<EditText>(R.id.evDriver)
         //endregion
 
         //region BUTTONS
@@ -77,6 +80,14 @@ class ActivityDetailVehicle : ComponentActivity() {
         spFuelTypes.adapter = ArrayAdapter(this@ActivityDetailVehicle, android.R.layout.simple_spinner_item, fuelTypes)
         spVehicleType.adapter = ArrayAdapter(this@ActivityDetailVehicle, android.R.layout.simple_spinner_item, vehicleTypes)
 
+        //region FETCH DRIVERS FOR COMBOBOX (w/out gc)
+        var driversWithoutGC: ArrayList<DriverModel> = ArrayList()
+
+        val emptyDriver = DriverModel(null, "", "", "", "", listOf(), "", "", "")
+        driversWithoutGC.add(emptyDriver)
+
+        val spDriver = findViewById<Spinner>(R.id.spDriver)
+        //endregion
 
         val vehicleVin: String? = intent.getStringExtra("vehicleVin")
 
@@ -89,6 +100,7 @@ class ActivityDetailVehicle : ComponentActivity() {
                     if (response.isSuccessful) {
                         //region FILL EDIT TEXTS
                         val v: VehicleModel = response.body()!!
+                        setupSpinner(api, v)
                         tvVinVal.text = v.vin
                         evBrandModel.text = Editable.Factory.getInstance().newEditable(v.brandModel)
                         evLicensePlate.text = Editable.Factory.getInstance().newEditable(v.licensePlate)
@@ -98,15 +110,11 @@ class ActivityDetailVehicle : ComponentActivity() {
 
                         evColor.text = Editable.Factory.getInstance().newEditable("")
                         evDoors.text = Editable.Factory.getInstance().newEditable("")
-                        evDriver.text = Editable.Factory.getInstance().newEditable("")
                         if (v.color!=null) {
                             evColor.text = Editable.Factory.getInstance().newEditable(v.color)
                         }
                         if (v.doors!=null) {
                             evDoors.text = Editable.Factory.getInstance().newEditable(v.doors.toString())
-                        }
-                        if (v.driverId!=null) {
-                            evDriver.text = Editable.Factory.getInstance().newEditable(v.driverId.toString())
                         }
                         //endregion
 
@@ -121,9 +129,8 @@ class ActivityDetailVehicle : ComponentActivity() {
                             if (!evDoors.text.toString().equals("")) {
                                 doors = evDoors.text.toString().toInt()
                             }
-                            if (!evDriver.text.toString().equals("")) {
-                                driverId = evDriver.text.toString().toInt()
-                            }
+                            val selectedDriver = spDriver.selectedItem as DriverModel
+                            driverId = selectedDriver.driverID
 
                             val updatedV = VehicleModel(
                                 vehicleVin,
@@ -192,9 +199,8 @@ class ActivityDetailVehicle : ComponentActivity() {
                 if (!evDoors.text.toString().equals("")) {
                     doors = evDoors.text.toString().toInt()
                 }
-                if (!evDriver.text.toString().equals("")) {
-                    driverId = evDriver.text.toString().toInt()
-                }
+                val selectedDriver = spDriver.selectedItem as DriverModel
+                driverId = 0
                 val createdV = VehicleModel(
                     evVin.text.toString(),
                     evBrandModel.text.toString(),
@@ -217,6 +223,66 @@ class ActivityDetailVehicle : ComponentActivity() {
                 })
             }
             //endregion
+        }
+    }
+
+    private fun setupSpinner(api: ApiService, v: VehicleModel?) {
+        //region GET VEHICLES & GASCARDS FOR COMBOBOX (values w/out Drivers)
+        var driversWithoutGC: ArrayList<DriverModel> = ArrayList()
+
+        val emptyDriver = DriverModel(null, "", "", "", "", listOf(), "", "", "")
+        driversWithoutGC.add(emptyDriver)
+
+        val spDriver = findViewById<Spinner>(R.id.spDriver)
+
+        api.getDrivers().enqueue(object : Callback<ArrayList<DriverModel>> {
+            override fun onResponse(call: Call<ArrayList<DriverModel>>, response: Response<ArrayList<DriverModel>>) {
+                if (response.isSuccessful) {
+                    val allDrivers = response.body()
+                    if (allDrivers != null) {
+                        if (v != null) {
+                            val filteredDrivers = allDrivers.filter { it.vehicleVin == v.vin }
+                            driversWithoutGC.addAll(filteredDrivers)
+                        }
+                        driversWithoutGC.addAll(allDrivers.filter { it.vehicleVin == null })
+                        Log.i("ADBILOGSTOLOS", driversWithoutGC.toString())
+                    } else {
+                        Log.e("ADBILOGSTOLOS", "Empty driver list.")
+                    }
+                } else {
+                    Toast.makeText(baseContext, response.code().toString(), Toast.LENGTH_SHORT).show()
+                    Log.e("ADBILOGSTOLOS", "Error getting drivers without vehicles.")
+                }
+                handleAPIResponseAllWithoutGasCard(driversWithoutGC, spDriver, v)
+            }
+
+            override fun onFailure(call: Call<ArrayList<DriverModel>>, t: Throwable) {
+                Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
+                Log.e("ADBILOGSTOLOS", "Connection error getting drivers without vehicles.")
+            }
+        })
+        //endregion
+    }
+
+    private fun setSpinnerAdapter(driversWithoutVehicles: ArrayList<DriverModel>, spDriver: Spinner, v: VehicleModel?) {
+        driverAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, driversWithoutVehicles)
+        driverAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spDriver.adapter = driverAdapter
+        if (v != null) {
+            if (v.driverId != null) {
+                spDriver.setSelection(1, true)
+            } else {
+                spDriver.setSelection(0, true)
+            }
+            Log.i("ADBILOGSTOLOS", "${v.vin.toString()} ${v.driverId.toString()}")
+        } else {
+            spDriver.setSelection(0, true)
+        }
+    }
+
+    private fun handleAPIResponseAllWithoutGasCard(driversWithoutVehicles: ArrayList<DriverModel>, spDriver: Spinner, v: VehicleModel?) {
+        if (driversWithoutVehicles.isNotEmpty()) {
+            setSpinnerAdapter(driversWithoutVehicles, spDriver, v)
         }
     }
 }

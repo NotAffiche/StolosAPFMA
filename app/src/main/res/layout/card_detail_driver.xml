@@ -206,15 +206,15 @@
                 android:textSize="15sp"
                 tools:text="Vehicle VIN:" />
 
-            <EditText
-                android:id="@+id/evVehicle"
+            <Spinner
+                android:id="@+id/spVeh"
                 android:layout_width="180sp"
                 android:layout_height="53sp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:hint="AB1CD2345EF678901"/>
+                />
         </RelativeLayout>
 
         <RelativeLayout
@@ -231,16 +231,17 @@
                 android:textSize="15sp"
                 tools:text="GasCard Num:" />
 
-            <EditText
-                android:id="@+id/evGasCard"
+            <Spinner
+                android:id="@+id/spGC"
                 android:layout_width="180sp"
                 android:layout_height="53sp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:hint="11223344556677889900"/>
+                />
         </RelativeLayout>
+
 
     </LinearLayout>
     <RelativeLayout
