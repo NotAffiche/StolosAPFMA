@@ -266,8 +266,8 @@ class ActivityDetailDriver : ComponentActivity() {
                             evRRN.text.toString(),
                                     tvLicensesSelect.text.split(","),
                                     evAddressValue,
-                                    selectedVehicle.vin.toString(),
-                                    selectedGasCard.cardNumber.toString())
+                                    selectedVehicle.vin ?: null,
+                                    selectedGasCard.cardNumber ?: null)
                             Log.i("ADBILOGSTOLOS", "${selectedVehicle.vin.toString()} ${selectedVehicle.brandModel.toString()} ${selectedVehicle.licensePlate.toString()}")
                             Log.i("ADBILOGSTOLOS", "${selectedGasCard.cardNumber.toString()} ${selectedGasCard.fuelTypes.toString()}")
                             Log.i("ADBILOGSTOLOS", updatedD.toString())
