@@ -257,27 +257,25 @@ class ActivityDetailDriver : ComponentActivity() {
                         btnSave.setOnClickListener(View.OnClickListener {
                             val selectedVehicle = spVeh.selectedItem as VehicleModel
                             val selectedGasCard = spGC.selectedItem as GasCardModel
+
+                            val selectedVehValue = selectedVehicle.vin?.toString()
+                            val selectedGcValue = selectedGasCard.cardNumber ?: null
+
                             val evAddressValue = evAddress.text.toString().takeIf { it.isNotEmpty() } ?: null
-                            val updatedD =
-                                DriverModel(driverId,
+                            val updatedD = DriverModel(
+                                driverId,
                                 evFirstName.text.toString(),
-                                    evLastName.text.toString(),
-                                    tvBirthDateDisplayValue.text.toString(),
-                            evRRN.text.toString(),
-                                    tvLicensesSelect.text.split(","),
-                                    evAddressValue,
-                                    selectedVehicle.vin ?: null,
-                                    selectedGasCard.cardNumber ?: null)
-                            Log.i("ADBILOGSTOLOS", "${selectedVehicle.vin.toString()} ${selectedVehicle.brandModel.toString()} ${selectedVehicle.licensePlate.toString()}")
-                            Log.i("ADBILOGSTOLOS", "${selectedGasCard.cardNumber.toString()} ${selectedGasCard.fuelTypes.toString()}")
-                            Log.i("ADBILOGSTOLOS", updatedD.toString())
-                            Log.i("ADBILOGSTOLOS", "${updatedD.driverID} ${updatedD.firstName} ${updatedD.lastName} ${updatedD.birthDate.toString()} ${updatedD.natRegNum} ${updatedD.licenses.toString()} ${updatedD.address} " +
-                                    "${selectedVehicle.vin.toString()} ${selectedGasCard.cardNumber.toString()}")
+                                evLastName.text.toString(),
+                                tvBirthDateDisplayValue.text.toString(),
+                                evRRN.text.toString(),
+                                tvLicensesSelect.text.split(","),
+                                evAddressValue,
+                                selectedVehValue,
+                                selectedGcValue
+                            )
 
                             api.updateDriverById(updatedD).enqueue(object : Callback<Unit> {
                                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                                    Log.i("ADBILOGSTOLOS", call.request().body.toString())
-                                    Log.i("ADBILOGSTOLOS", call.request().toString())
                                     startActivity(Intent(this@ActivityDetailDriver, ActivityDrivers::class.java))
                                 }
 
