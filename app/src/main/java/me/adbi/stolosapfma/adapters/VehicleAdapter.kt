@@ -32,7 +32,7 @@ class VehicleAdapter(val context: Context, objects:ArrayList<VehicleModel>) : Re
     inner class VehicleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvVehicle: TextView = itemView.findViewById(R.id.tvVehicle)
         fun bindView(v: VehicleModel) {
-            tvVehicle.text = "${v.brandModel} - ${v.licensePlate}"
+            tvVehicle.text = "${v.brandModel}\n${v.licensePlate}"
             itemView.setOnClickListener{
                 context.startActivity(Intent(context, ActivityDetailVehicle::class.java).putExtra("vehicleVin", v.vin))
             }

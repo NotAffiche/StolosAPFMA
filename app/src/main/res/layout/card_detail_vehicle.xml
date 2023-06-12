@@ -12,7 +12,7 @@
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
         android:layout_height="125sp"
-        android:layout_margin="15sp"
+        android:layout_margin="14sp"
         android:src="@drawable/logo" />
 
     <LinearLayout
@@ -33,7 +33,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="VIN:" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:gravity="center"
                 tools:text="VIN" />
             <EditText
@@ -53,7 +53,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="AB1CD2345EF678901" />
         </RelativeLayout>
 
@@ -68,7 +68,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Brand Model:" />
 
             <EditText
@@ -78,7 +78,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="Toyota Yaris"/>
         </RelativeLayout>
 
@@ -93,7 +93,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="License Plate:" />
 
             <EditText
@@ -103,7 +103,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="1-ABC-123" />
         </RelativeLayout>
 
@@ -118,7 +118,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Fuel Type:" />
 
             <Spinner
@@ -129,7 +129,7 @@
                 android:layout_centerInParent="true"
                 android:entries="@array/fueltypes"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
         </RelativeLayout>
 
@@ -144,7 +144,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Vehicle Type:" />
 
             <Spinner
@@ -155,7 +155,7 @@
                 android:layout_centerInParent="true"
                 android:entries="@array/vehicletypes"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -169,7 +169,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Color:" />
 
             <EditText
@@ -179,7 +179,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="red"/>
         </RelativeLayout>
 
@@ -194,7 +194,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Doors:" />
 
             <EditText
@@ -204,7 +204,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="3"/>
         </RelativeLayout>
 
@@ -219,8 +219,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                tools:text="Driver Id:" />
+                android:textSize="14sp"
+                tools:text="Driver:" />
 
             <Spinner
                 android:id="@+id/spDriver"
@@ -229,7 +229,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 />
         </RelativeLayout>
 

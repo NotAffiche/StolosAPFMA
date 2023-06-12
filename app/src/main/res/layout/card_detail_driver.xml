@@ -12,7 +12,7 @@
         android:id="@+id/ivLogo"
         android:layout_width="match_parent"
         android:layout_height="125sp"
-        android:layout_margin="15sp"
+        android:layout_margin="14sp"
         android:src="@drawable/logo" />
 
     <LinearLayout
@@ -33,7 +33,7 @@
                 android:textColor="@color/black"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="First Name:" />
 
             <EditText
@@ -43,7 +43,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="John" />
         </RelativeLayout>
 
@@ -58,7 +58,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Last Name:" />
 
             <EditText
@@ -68,7 +68,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="Doe"/>
         </RelativeLayout>
 
@@ -83,7 +83,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Birth Date:" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="BirthDate"
                 android:visibility="visible" />
 
@@ -111,7 +111,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="RRN:" />
 
             <EditText
@@ -121,7 +121,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="90.12.31-123.48"/>
         </RelativeLayout>
 
@@ -136,7 +136,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:text="Licenses:" />
 
             <RelativeLayout
@@ -152,7 +152,7 @@
                     android:gravity="center"
                     android:layout_centerInParent="true"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:hint="Licenses"
                     />
 
@@ -178,7 +178,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 tools:text="Address:" />
 
             <EditText
@@ -188,7 +188,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:hint="Straat 1, 1000 Gemeente"/>
         </RelativeLayout>
 
@@ -203,8 +203,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                tools:text="Vehicle VIN:" />
+                android:textSize="14sp"
+                tools:text="Vehicle:" />
 
             <Spinner
                 android:id="@+id/spVeh"
@@ -213,7 +213,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 />
         </RelativeLayout>
 
@@ -228,8 +228,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                tools:text="GasCard Num:" />
+                android:textSize="14sp"
+                tools:text="GasCard:" />
 
             <Spinner
                 android:id="@+id/spGC"
@@ -238,7 +238,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 />
         </RelativeLayout>
 
