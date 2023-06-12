@@ -163,7 +163,7 @@ class ActivityDetailGasCard : ComponentActivity() {
                         Log.i("ADBILOGSTOLOS", response.body().toString())
                         //region FILL EDIT TEXTS
                         val gc: GasCardModel = response.body()!!
-                        setupSpinner(api, gc)
+                        setupSpinner(api, spDriver, gc)
                         tvCardNumberVal.text = gc.cardNumber
                         tvExpiringDateDisplayValue.text = Editable.Factory.getInstance().newEditable(gc.expiringDate.split("T")[0])
                         Log.i("ADBILOGSTOLOS", tvExpiringDateDisplayValue.text.toString())
@@ -258,7 +258,7 @@ class ActivityDetailGasCard : ComponentActivity() {
             btnDelete.setVisibility(View.GONE)
             tvCardNumberVal.setVisibility(View.GONE)
             evCardNumber.setVisibility(View.VISIBLE)
-            setupSpinner(api, null)
+            setupSpinner(api, spDriver, null)
             //region REGISTER ADD
 
             btnSave.setOnClickListener{
@@ -292,14 +292,13 @@ class ActivityDetailGasCard : ComponentActivity() {
             //endregion
         }
     }
-    private fun setupSpinner(api: ApiService, gc: GasCardModel?) {
-        //region GET VEHICLES & GASCARDS FOR COMBOBOX (values w/out Drivers)
+    private fun setupSpinner(api: ApiService, spDriver: Spinner, gc: GasCardModel?) {
+        //region GET GASCARDS FOR COMBOBOX (values w/out Drivers)
         var driversWithoutGC: ArrayList<DriverModel> = ArrayList()
 
         val emptyDriver = DriverModel(null, "", "", "", "", listOf(), "", "", "")
         driversWithoutGC.add(emptyDriver)
 
-        val spDriver = findViewById<Spinner>(R.id.spDriver)
 
         api.getDrivers().enqueue(object : Callback<ArrayList<DriverModel>> {
             override fun onResponse(call: Call<ArrayList<DriverModel>>, response: Response<ArrayList<DriverModel>>) {

@@ -18,7 +18,7 @@ data class DriverModel (
         return if (driverID == null && firstName.isEmpty() && lastName.isEmpty()) {
             "Unset"
         } else {
-            "$firstName $lastName"
+            "$firstName $lastName $vehicleVin $gasCardNum"
         }
     }
 }
