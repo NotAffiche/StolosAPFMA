@@ -218,7 +218,6 @@ class ActivityDetailDriver : ComponentActivity() {
                         val d: DriverModel = response.body()!!
                         setupVehicleSpinner(api, spVeh, d)
                         setupGasCardSpinner(api, spGC, d)
-                        Toast.makeText(this@ActivityDetailDriver, "DriverID: ${d.driverID}", Toast.LENGTH_SHORT).show()
                         evFirstName.text = Editable.Factory.getInstance().newEditable(d.firstName)
                         evLastName.text = Editable.Factory.getInstance().newEditable(d.lastName)
                         tvBirthDateDisplayValue.text = Editable.Factory.getInstance().newEditable(d.birthDate.split("T")[0])
